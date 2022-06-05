@@ -15,10 +15,15 @@
     </head>
     <body>
         {% block body %}{% endblock %}
-        <div class="bg-gray-200 min-h-screen">
+        <div class="bg-orange-300 min-h-screen">
             <h1 class="underline hover:no-underline text-3xl">
                 Hola caracola!
             </h1>
+
+            {% for b in business%}
+                <p class="text-indigo-600 text-2xl">{{ b.name }}</p>
+                <p class="text-blue-600">{{ b.address}}</p>
+            {% endfor %}
         </div>
     </body>
 </html>
