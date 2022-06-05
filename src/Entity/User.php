@@ -24,12 +24,16 @@ class User extends Business
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Client::class)]
     private $clients;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: DeliveryNote::class, orphanRemoval: true)]
+    private $deliveryNotes;
+
     /*#[ORM\OneToMany(mappedBy: "client", targetEntity: Client::class)]
     private $clients;*/
 
     public function __construct()
     {
         $this->clients = new ArrayCollection();
+        $this->deliveryNotes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,6 +89,36 @@ class User extends Business
             // set the owning side to null (unless already changed)
             if ($client->getUser() === $this) {
                 $client->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DeliveryNote>
+     */
+    public function getDeliveryNotes(): Collection
+    {
+        return $this->deliveryNotes;
+    }
+
+    public function addDeliveryNote(DeliveryNote $deliveryNote): self
+    {
+        if (!$this->deliveryNotes->contains($deliveryNote)) {
+            $this->deliveryNotes[] = $deliveryNote;
+            $deliveryNote->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDeliveryNote(DeliveryNote $deliveryNote): self
+    {
+        if ($this->deliveryNotes->removeElement($deliveryNote)) {
+            // set the owning side to null (unless already changed)
+            if ($deliveryNote->getUser() === $this) {
+                $deliveryNote->setUser(null);
             }
         }
 
