@@ -6,7 +6,13 @@ use App\Repository\BusinessRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BusinessRepository::class)]
-class Business
+#[ORM\InheritanceType("JOINED")]
+#[ORM\DiscriminatorColumn(name: "type", type: "string")]
+#[ORM\DiscriminatorMap([
+    "client" => Client::class,
+    "user" => User::class
+])]
+abstract class Business
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,7 +28,9 @@ class Business
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $email;
 
-    #[ORM\OneToOne(inversedBy: 'business', targetEntity: Address::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'business',
+        targetEntity: Address::class,
+        cascade: ['persist', 'remove'])]
     private $address;
 
     public function getId(): ?int

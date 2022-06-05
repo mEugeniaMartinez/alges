@@ -25,7 +25,9 @@ class Address
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $postcode;
 
-    #[ORM\OneToOne(mappedBy: 'address', targetEntity: Business::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'address',
+        targetEntity: Business::class,
+        cascade: ['persist', 'remove'])]
     private $business;
 
     public function getId(): ?int

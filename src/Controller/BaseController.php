@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Address;
 use App\Entity\Business;
+use App\Entity\Client;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,24 +25,43 @@ class BaseController extends AbstractController
     public function index(): Response
     {
 
-        /*$address = new Address();
-        $address->setStreet("C/ Nueva, 6");
+        /*$addressRepo = $this->em->getRepository(Address::class);
+        $address = $addressRepo->find(16);
+        $address2 = $addressRepo->find(17);
 
-        $business = new Business();
-        $business->setName("Nueva empresa");
-        $business->setAddress($address);
+        $user = new User();
+        $user->setName("User");
+        $user->setFooter("cosotas importantes");
+        $user->setPhone("666000000");
+        $user->setPhone("user@user,com");
+        $user->setAddress($address2);
 
-        $this->em->persist($business);
-        $this->em->persist($address);
+        $client = new Client();
+        $client->setName("Cliente");
+        $client->setEmail("cliente@cliente.com");
+        $client->setPhone("666111111");
+        $client->setAddress($address);
+
+        $this->em->persist($client);
+        $this->em->persist($user);
         $this->em->flush();*/
 
-        $businesRepo = $this->em->getRepository(Business::class);
+        $userRepo = $this->em->getRepository(User::class);
 
-        $busines = $businesRepo->findAll();
+        $userDB = $userRepo->find(26);
+        //$clientDB = $clientRepo->find(27);
+
+        /*$clientDB->setUser($userDB);
+        $this->em->flush();*/
+
+        $clients = $userDB->getClients();
+        foreach ($clients as $c) {
+            var_dump($c->getEmail());
+        }
 
         return $this->render('base.html.twig', [
             'controller_name' => 'BaseController',
-            'business' => $busines,
+            //clients' => $clientDB,
         ]);
     }
 }
