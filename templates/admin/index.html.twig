@@ -1,0 +1,19 @@
+{# templates/admin/index.html.twig #}
+
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block head_favicon %}
+    <link rel="icon" type="image/png" href="{{ asset('logo.ico') }}"/>
+{% endblock %}
+
+{#
+<h1 class="underline hover:no-underline text-3xl">
+    Hola caracola!
+</h1>
+
+{% for user in users%}
+    <p class="text-indigo-600 text-2xl hover:text-4xl">Email: {{ user.email }}</p>
+    <p class="text-teal-700">Footer: {{ user.footer}}</p>
+    <p class="text-teal-900 hover:font-bold">Rol: {{ user.roles | join(', ')}}</p>
+{% endfor %}
+#}

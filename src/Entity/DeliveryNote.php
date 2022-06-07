@@ -27,7 +27,7 @@ class DeliveryNote
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $intervention;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255, unique: true, nullable: true)]
     private $number;
 
     #[ORM\Column(type: 'blob', nullable: true)]

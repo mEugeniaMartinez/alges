@@ -10,16 +10,19 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
 
 class BaseController extends AbstractController
 {
     private $em;
+    private UserPasswordHasherInterface $hasher;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher)
     {
         $this->em = $entityManager;
+        $this->hasher = $hasher;
     }
 
     #[Route('/base', name: 'app_base')]
@@ -29,7 +32,7 @@ class BaseController extends AbstractController
         /*$userRepo = $this->em->getRepository(User::class);
         $userDB = $userRepo->find(26);
         $clientRepo = $this->em->getRepository(Client::class);
-        $clientDB = $clientRepo->find(27);
+        $clientDB = $clientRepo->find(28);
         $date = date_create_from_format('d-m-Y', date("d-m-Y"));
 
         $dn = new DeliveryNote($userDB);
@@ -47,9 +50,18 @@ class BaseController extends AbstractController
             var_dump($d->getDate()->format('d-m-Y'));
         }*/
 
+        /*$user = $this->em->getRepository(User::class)->find(26);
+        $user->setPlainPassword("tada2");
+        $hashPassw = $this->hasher->hashPassword($user, $user->getPlainPassword());
+        $user->setPassword($hashPassw);
+
+        $this->em->flush();*/
+
+        //$users = $this->em->getRepository(User::class)->findAll();
+
         return $this->render('base.html.twig', [
             'controller_name' => 'BaseController',
-            //clients' => $clientDB,
+            //'users' => $users,
         ]);
     }
 }
