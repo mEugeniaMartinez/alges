@@ -9,17 +9,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
+use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
-use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\CustomCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-class LoginFormAuthenticator extends AbstractAuthenticator
+class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
+    use TargetPathTrait;
+
     private UserRepository $userRepository;
     private RouterInterface $router;
 
@@ -30,19 +32,13 @@ class LoginFormAuthenticator extends AbstractAuthenticator
         $this->router = $router;
     }
 
-
-    public function supports(Request $request): ?bool
-    {
-        return $request->getPathInfo() === '/login' &&
-            $request->isMethod('POST');
-    }
-
     public function authenticate(Request $request): Passport
     {
         $email = $request->request->get('email');
         $password = $request->request->get('password');
 
         //Dice quien es el usuario (identificado x email)
+        //Resumen cap. 13
         return new Passport(
             //coge el email pq configuracion en
             //security.yml -> app_user_provider -> App\Entity\User y property: email
@@ -58,34 +54,30 @@ class LoginFormAuthenticator extends AbstractAuthenticator
                 return $user;
             }),
             //compara directamente con el hash guardado de la passw
-            new PasswordCredentials($password)
+            new PasswordCredentials($password),
+            [
+                new CsrfTokenBadge(
+                    'authenticate',
+                    $request->request->get('_csrf_token')
+                ),
+                new RememberMeBadge(), // busca directamente _remember_me
+            ]
         );
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+        if ($target = $this->getTargetPath($request->getSession(), $firewallName)) {
+            return new RedirectResponse($target);
+        }
+
         return new RedirectResponse(
-            $this->router->generate('app_admin')
+            $this->router->generate('app_delivery_notes')
         );
     }
 
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
+    protected function getLoginUrl(Request $request): string
     {
-        $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
-
-        return new RedirectResponse(
-            $this->router->generate('app_login')
-        );
+        return $this->router->generate('app_login');
     }
-
-//    public function start(Request $request, AuthenticationException $authException = null): Response
-//    {
-//        /*
-//         * If you would like this class to control what happens when an anonymous user accesses a
-//         * protected page (e.g. redirect to /login), uncomment this method and make this class
-//         * implement Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface.
-//         *
-//         * For more details, see https://symfony.com/doc/current/security/experimental_authenticators.html#configuring-the-authentication-entry-point
-//         */
-//    }
 }

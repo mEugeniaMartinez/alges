@@ -8,11 +8,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
 class DashboardController extends AbstractDashboardController
 {
-    //#[IsGranted('ROLE_USER')]
-    #[Route('/admin', name: 'app_admin')]
+    /* pongo este y no REMEMBERED por seguridad => app que podemos abrir en el cliente
+     * y así si se nos olvida hacer logout, si se mete el cliente desde el mismo navegador,
+     * no podrá entrar en mi sesión de la app
+     */
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    #[Route('/delivery_notes', name: 'app_delivery_notes')]
     public function index(): Response
     {
         return $this->render('admin/index.html.twig');
@@ -39,12 +42,20 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Alges');
+            ->setTitle('AlGes')
+            ->setFaviconPath('logo.ico');
+
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::section('Gestión');
+        yield MenuItem::linkToDashboard('Albaranes', 'far fa-file-lines');
+        yield MenuItem::linkToDashboard('Clientes', 'fa fa-people-group');
+        yield MenuItem::section('Usuario');
+        yield MenuItem::linkToDashboard('Configuración', 'fa fa-gears');
+        yield MenuItem::section();
+        yield MenuItem::linkToLogout('Logout', 'fa fa-arrow-right-from-bracket');
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }

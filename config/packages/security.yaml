@@ -21,7 +21,30 @@ security:
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\LoginFormAuthenticator
-            logout: true
+            logout:
+                target: app_login
+
+            #si no queremos personalizar el login
+            # podria usar este de symfony:
+            # y cambiar -> custom_authenticator: form_login
+            # y en remember_me => always_remember_me: true
+            # y en LoginFormAuthenticator => en vez de new RememberMeBadge() =>
+            # (new RememberMeBadge())->enable()
+            # y no hace falta el checkbox del login
+            #form_login:
+            #    login_path: app_login
+            #    check_path: app_login
+            #    user_parameter: email
+            #    password_parameter: password
+            #    enable_csrf: true
+            # Yo no, porque futuro -> elegir como te logueas -> user o admin
+
+            remember_me:
+                secret: '%kernel.secret%'
+                #incluye las passw en la firma de la RememberMeCookie
+                # así si cambiamos de passw, no se puede seguir accediendo
+                # con una cookie con la passw antigua (cap. 15)
+                signature_properties: [password]
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -32,7 +55,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/admin, roles: [ROLE_ADMIN, ROLE_USER] }
+         - { path: ^/delivery_notes, roles: [ROLE_ADMIN, ROLE_USER] }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

@@ -11,7 +11,7 @@
             <img class="mb-10 w-2/5" src="{{ asset('img/logo_title.svg') }}" alt="Logo"/>
 
             <div class="max-w-md w-1/2 pt-4 pb-10 mx-48 sm:px-6 lg:px-8 bg-gray-300 rounded-lg shadow-lg">
-                <form class="space-y-6" action="#" method="POST">
+                <form class="space-y-5" action="#" method="POST">
                     <h2 class="text-orange-500 text-center font-semibold text-3xl">Login</h2>
 
                     {% if error %}
@@ -20,8 +20,7 @@
                     </div>
                     {% endif %}
 
-                    <input type="hidden" name="remember" value="true">
-                    <div class="rounded-md shadow-sm -space-y-px">
+                    <div class="-space-y-px">
                         <div>
                             <label for="email-address" class="sr-only">Email</label>
                             <input id="email-address" name="email" type="email" autocomplete="email"
@@ -38,13 +37,19 @@
                                    text-gray-900 rounded-b-md focus:outline-none focus:ring-orange-500
                                    focus:border-orange-500 focus:z-10 sm:text-sm" placeholder="Contraseña">
                         </div>
+
+                        <div class="form-check">
+                            <label class="form-check-label inline-block text-gray-700 mt-4">
+                                <input class="form-check-input appearance-none h-4 w-4 border border-gray-300
+                        rounded-sm bg-white checked:bg-orange-500 checked:border-orange-500 focus:outline-none
+                        transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2
+                        cursor-pointer" type="checkbox" name="_remember_me">
+                                Recuérdame
+                            </label>
+                        </div>
                     </div>
 
-                    <div class="text-sm text-center">
-                        <a href="#" class="font-medium text-orange-600 hover:text-orange-400">
-                            ¿Aún no tienes una cuenta? Regístrate
-                        </a>
-                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
                     <div>
                         <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border
@@ -52,6 +57,12 @@
                         focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
                           Login
                         </button>
+                    </div>
+
+                    <div class="text-sm text-center">
+                        <a href="#" class="font-medium text-orange-600 hover:text-orange-400">
+                            ¿Aún no tienes una cuenta? Regístrate
+                        </a>
                     </div>
                 </form>
             </div>
