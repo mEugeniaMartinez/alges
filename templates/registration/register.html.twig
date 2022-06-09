@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+{% form_theme registrationForm 'tailwind_2_layout.html.twig' %}
+
+{% block title %}Registro{% endblock %}
+
+{% block body %}
+    <div class="min-h-full flex justify-center items-center py-20"
+         id="contenedor">
+        <div class="flex flex-col justify-center items-center">
+
+            <img class="mb-10 w-2/5" src="{{ asset('img/logo_title.svg') }}" alt="Logo"/>
+
+            <div class="max-w-md w-1/2 pt-4 pb-10 mx-48 sm:px-6 lg:px-8 bg-gray-300 rounded-lg shadow-lg">
+                <div>
+                    {{ form_start(registrationForm, {
+                        'attr': {'class': 'form-signin'}
+                    }) }}
+
+                    <h2 class="text-orange-500 -mb-2 text-center font-semibold text-3xl">Registro</h2>
+
+                    {{ form_errors(registrationForm.plainPassword.first, {
+                        attr: { role: 'alert' },
+                        error_item_class: 'bg-red-100 border border-red-400
+                        text-red-700 px-4 py-3 rounded mt-8 -mb-3'
+                    }) }}
+                    {{ form_errors(registrationForm.plainPassword.second, {
+                        attr: { role: 'alert' },
+                        error_item_class: 'bg-red-100 border border-red-400
+                        text-red-700 px-4 py-3 rounded mt-8 -mb-3'
+                    }) }}
+                    {{ form_errors(registrationForm.email, {
+                        attr: { role: 'alert' },
+                        error_item_class: 'bg-red-100 border border-red-400
+                        text-red-700 px-4 py-3 rounded mt-8 -mb-3'
+                    }) }}
+                    {{ form_errors(registrationForm.name, {
+                        attr: { role: 'alert' },
+                        error_item_class: 'bg-red-100 border border-red-400
+                        text-red-700 px-4 py-3 rounded mt-8 -mb-3'
+                    }) }}
+
+
+                    <div class="-space-y-px">
+                        {{ form_row(registrationForm.name, {
+                            attr: { placeholder: 'Nombre de la empresa'},
+                            label_class: 'sr-only',
+                            row_class: 'mt-8',
+                            widget_class: 'appearance-none rounded-none relative block w-full px-3 py-2
+                                   border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md
+                                   focus:outline-none focus:ring-orange-500 focus:border-orange-500
+                                   focus:z-10 sm:text-sm',
+                            error_item_class: 'hidden'
+                        }) }}
+
+                        {{ form_row(registrationForm.email, {
+                            attr: { placeholder: 'Email', autocomplete:'email' },
+                            label_class: 'sr-only',
+                            row_class: 'mt-8',
+                            widget_class: 'appearance-none rounded-none relative block w-full px-3 py-2
+                                   border border-gray-300 placeholder-gray-500 text-gray-900
+                                   focus:outline-none focus:ring-orange-500 focus:border-orange-500
+                                   focus:z-10 sm:text-sm',
+                            error_item_class: 'hidden'
+                        }) }}
+
+                        {{ form_row(registrationForm.plainPassword.first, {
+                            attr: { placeholder: 'Contraseña' },
+                            label_class: 'sr-only',
+                            widget_class: 'appearance-none rounded-none placeholder-gray-500
+                                   relative block w-full px-3 py-2 border border-gray-300
+                                   text-gray-900 focus:outline-none focus:ring-orange-500
+                                   focus:border-orange-500 focus:z-10 sm:text-sm',
+                            error_item_class: 'hidden',
+                        }) }}
+
+                        {{ form_row(registrationForm.plainPassword.second, {
+                            attr: { placeholder: 'Repita la contraseña' },
+                            label_class: 'sr-only',
+                            widget_class: 'appearance-none rounded-none placeholder-gray-500
+                                   relative block w-full px-3 py-2 border border-gray-300
+                                   text-gray-900 rounded-b-md focus:outline-none focus:ring-orange-500
+                                   focus:border-orange-500 focus:z-10 sm:text-sm',
+                            error_item_class: 'hidden',
+                        }) }}
+
+                        {#<div>
+                            <label for="password" class="sr-only">Contraseña</label>
+                            <input id="password" name="plainPassword" type="password"
+                                   autocomplete="current-password" required class="appearance-none rounded-none
+                                   relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500
+                                   text-gray-900 focus:outline-none focus:ring-orange-500
+                                   focus:border-orange-500 focus:z-10 sm:text-sm" placeholder="Contraseña">
+                        </div>
+                    </div>
+
+                    {#<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">#}
+
+                    <div>
+                        <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border
+                        border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-400
+                        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 mt-8 mb-6">
+                            Crear cuenta
+                        </button>
+                    </div>
+
+                    <div class="text-sm text-center">
+                        <a href="{{ path('app_login') }}" class="font-medium text-orange-600 hover:text-orange-400">
+                            ¿Ya tienes una cuenta? Iniciar sesión
+                        </a>
+                    </div>
+                    {{ form_end(registrationForm) }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{#
+<div class="min-h-full flex justify-center items-center py-20"
+     id="contenedor">
+    <div class="flex flex-col justify-center items-center">
+        <img class="mb-10 w-2/5" src="{{ asset('img/logo_title.svg') }}" alt="Logo"/>
+
+        <div class="max-w-md w-1/2 pt-4 pb-10 mx-48 sm:px-6 lg:px-8 bg-gray-300 rounded-lg shadow-lg">
+            <h2 class="text-orange-500 text-center font-semibold text-3xl">Registro</h2>
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Password'
+                }) }}
+
+            <button type="submit" class="w-full flex justify-center py-2 px-4 border hover:bg-orange-400
+                        border-transparent text-sm font-medium rounded-md text-white bg-orange-600
+                        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+                Crear cuenta
+            </button>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+</div>#}
+{% endblock %}

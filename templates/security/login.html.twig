@@ -39,11 +39,11 @@
                         </div>
 
                         <div class="form-check">
-                            <label class="form-check-label inline-block text-gray-700 mt-4">
-                                <input class="form-check-input appearance-none h-4 w-4 border border-gray-300
-                        rounded-sm bg-white checked:bg-orange-500 checked:border-orange-500 focus:outline-none
-                        transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2
-                        cursor-pointer" type="checkbox" name="_remember_me">
+                            <label class="inline-block text-gray-700 mt-4">
+                                <input class="form-checkbox appearance-none h-4 w-4 border border-white
+                        rounded-sm bg-white focus:outline-none checked:bg-orange-500 checked:hover:bg-orange-500
+                        transition duration-100 mt-1 align-top bg-center bg-contain focus:checked:bg-orange-500
+                        float-left mr-2 cursor-pointer" type="checkbox" name="_remember_me">
                                 Recuérdame
                             </label>
                         </div>
@@ -55,12 +55,12 @@
                         <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border
                         border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-400
                         focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
-                          Login
+                          Iniciar sesión
                         </button>
                     </div>
 
                     <div class="text-sm text-center">
-                        <a href="#" class="font-medium text-orange-600 hover:text-orange-400">
+                        <a href="{{ path('app_register') }}" class="font-medium text-orange-600 hover:text-orange-400">
                             ¿Aún no tienes una cuenta? Regístrate
                         </a>
                     </div>

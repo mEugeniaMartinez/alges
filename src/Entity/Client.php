@@ -19,6 +19,9 @@ class Client extends Business
     #[ORM\JoinColumn(nullable: false)]
     private $user;
 
+    #[ORM\Column(type: 'string', length: 180, nullable: true)]
+    private $email;
+
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: DeliveryNote::class)]
     private $deliveryNotes;
 
@@ -43,6 +46,18 @@ class Client extends Business
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

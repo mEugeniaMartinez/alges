@@ -6,29 +6,23 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\AttributeOverride;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-/**
- * @AttributeOverride(name="email",
- *          column=@Column(
- *              name     = "email",
- *              type     = "string",
- *              nullable = true,
- *              unique   = true,
- *              length   = 180
- *          )
- *      )
- *
- */
+#[UniqueEntity(fields: ['email'], message: 'Ya existe una cuenta con ese correo electrónico.')]
 class User extends Business implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
+
+    #[ORM\Column(type: 'string', length: 180, nullable: false)]
+    #[Assert\Email]
+    private $email;
 
     #[ORM\Column(type: 'blob', nullable: true)]
     private $logo;
@@ -62,6 +56,18 @@ class User extends Business implements UserInterface, PasswordAuthenticatedUserI
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
     }
 
     public function getLogo()
@@ -155,7 +161,7 @@ class User extends Business implements UserInterface, PasswordAuthenticatedUserI
      */
     public function getUserIdentifier(): string
     {
-        return (string) parent::getEmail();
+        return (string) $this->getEmail();
     }
 
     /**
@@ -163,7 +169,7 @@ class User extends Business implements UserInterface, PasswordAuthenticatedUserI
      */
     public function getUsername(): string
     {
-        return (string) parent::getEmail();
+        return (string) $this->getEmail();
     }
 
     /**
