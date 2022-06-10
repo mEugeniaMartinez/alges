@@ -30,12 +30,19 @@ class Client extends Business
         $this->deliveryNotes = new ArrayCollection();
     }
 
-   /* #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "users")]
-    private $user;*/
+    public function __toString(): string
+    {
+        return $this->getName();
+    }
+
+
+    /* #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "users")]
+     private $user;*/
 
     public function getId(): ?int
     {
-        return $this->id;
+        return parent::getId();
+        //return $this->id;
     }
 
     public function getUser(): ?User

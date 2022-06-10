@@ -4,18 +4,18 @@
 
 {% block body %}
     {#min-h-full flex justify-center items-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-300 w-2/5 rounded#}
-    <div class="min-h-full flex justify-center items-center py-20"
+    <div class="min-h-full flex justify-center items-center py-16"
              id="contenedor">
         <div class="flex flex-col justify-center items-center">
 
-            <img class="mb-10 w-2/5" src="{{ asset('img/logo_title.svg') }}" alt="Logo"/>
+            <img class="mb-10 w-2/5" src="{{ asset('logo_title.svg') }}" alt="Logo"/>
 
             <div class="max-w-md w-1/2 pt-4 pb-10 mx-48 sm:px-6 lg:px-8 bg-gray-300 rounded-lg shadow-lg">
-                <form class="space-y-5" action="#" method="POST">
+                <form class="space-y-7" action="#" method="POST">
                     <h2 class="text-orange-500 text-center font-semibold text-3xl">Login</h2>
 
                     {% if error %}
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-3 py-1 rounded relative" role="alert">
                         {{ error.messageKey | trans(error.messageData, 'security')}}
                     </div>
                     {% endif %}
@@ -38,7 +38,7 @@
                                    focus:border-orange-500 focus:z-10 sm:text-sm" placeholder="Contraseña">
                         </div>
 
-                        <div class="form-check">
+                        {#<div class="form-check">
                             <label class="inline-block text-gray-700 mt-4">
                                 <input class="form-checkbox appearance-none h-4 w-4 border border-white
                         rounded-sm bg-white focus:outline-none checked:bg-orange-500 checked:hover:bg-orange-500
@@ -46,7 +46,7 @@
                         float-left mr-2 cursor-pointer" type="checkbox" name="_remember_me">
                                 Recuérdame
                             </label>
-                        </div>
+                        </div>#}
                     </div>
 
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
@@ -54,7 +54,7 @@
                     <div>
                         <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border
                         border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-400
-                        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+                        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 mt-8 -mb-2">
                           Iniciar sesión
                         </button>
                     </div>

@@ -86,9 +86,6 @@
             "ref": "b131e6cbfe1b898a508987851963fff485986285"
         }
     },
-    "egulias/email-validator": {
-        "version": "3.2"
-    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.12"
     },
@@ -262,7 +259,7 @@
         "version": "v5.4.8"
     },
     "symfony/mailer": {
-        "version": "5.4",
+        "version": "6.0",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",

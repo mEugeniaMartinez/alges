@@ -50,7 +50,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
                 if (!$user) {
                     throw new UserNotFoundException();
                 }
-
                 return $user;
             }),
             //compara directamente con el hash guardado de la passw

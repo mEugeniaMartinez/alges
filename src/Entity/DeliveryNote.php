@@ -36,10 +36,13 @@ class DeliveryNote
     #[ORM\Column(type: 'blob', nullable: true)]
     private $pdf;
 
-    #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'deliveryNotes')]
+    #[ORM\ManyToOne(targetEntity: Client::class,
+        inversedBy: 'deliveryNotes')]
     private $client;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'deliveryNotes')]
+    #[ORM\ManyToOne(targetEntity: User::class,
+        cascade: ['persist', 'merge'],
+        inversedBy: 'deliveryNotes')]
     #[ORM\JoinColumn(nullable: false)]
     private $user;
 
@@ -52,12 +55,12 @@ class DeliveryNote
     #[ORM\Column(type: 'boolean')]
     private $disabled;
 
-    /**
-     * @param User $user
-     */
-    public function __construct(User $user)
+    #[ORM\Column(type: 'string', length: 40, nullable: true)]
+    private $timeSpent;
+
+    public function __construct()
     {
-        $this->user = $user;
+        //$this->setUser($_SESSION['user_data']);
         $this->signed = false;
         $this->disabled = false;
         $this->completed = false;
@@ -121,7 +124,7 @@ class DeliveryNote
         return $this->number;
     }
 
-    public function setNumber(?string $id): self
+    public function setNumber(?string $id)
     {
         $this->number = $this->generateNumber($id);
 
@@ -217,5 +220,17 @@ class DeliveryNote
         $date = date("my", strtotime("today"));; // 06 Jun, 2022 -> 0622
         return 'AL_' . str_pad($id . $date, 7,
             "0", STR_PAD_LEFT); //AL_0020622
+    }
+
+    public function getTimeSpent(): ?string
+    {
+        return $this->timeSpent;
+    }
+
+    public function setTimeSpent(?string $timeSpent): self
+    {
+        $this->timeSpent = $timeSpent;
+
+        return $this;
     }
 }

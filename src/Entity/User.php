@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'Ya existe una cuenta con ese correo electrónico.')]
+#[UniqueEntity(fields: ['email'], message: 'Ya existe una cuenta con ese email')]
 class User extends Business implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -53,9 +53,16 @@ class User extends Business implements UserInterface, PasswordAuthenticatedUserI
         $this->deliveryNotes = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->getEmail();
+    }
+
+
     public function getId(): ?int
     {
-        return $this->id;
+        return parent::getId();
+        //return $this->id;
     }
 
     public function getEmail(): ?string

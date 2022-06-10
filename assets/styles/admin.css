@@ -1,0 +1,53 @@
+.btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active:focus, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):focus, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):hover
+{
+    background-color: var(--orange-400);
+}
+
+.ea-dark-scheme .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active:focus, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):focus, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):hover
+{
+    background-color: var(--orange-400);
+}
+
+.ea-dark-scheme .dropdown-menu a:hover {
+    color: var(--true-gray-700);
+    --dropdown-icon-color: var(--true-gray-600);
+}
+
+.main-content {
+    margin-bottom: 75px;
+}
+
+:root {
+    --color-primary: var(--orange-500);
+    --resize-handler-hover-bg: var(--orange-400);
+    --form-switch-checked-bg: var(--orange-500);
+    --button-primary-bg: var(--orange-500);
+    --form-type-check-input-checked-bg: var(--orange-500);
+    --pagination-active-bg: var(--orange-400);
+    --sidebar-menu-active-item-bg: var(--orange-100);
+    --text-color-dark: var(--orange-500);
+    --link-hover-color: var(--orange-200);
+    --badge-boolean-false-bg: var(--red-500);
+    --badge-boolean-false-color: white;
+    --badge-boolean-true-bg: var(--green-500);
+    --badge-boolean-true-color: white;
+    --dropdown-link-hover-bg: var(--orange-200);
+}
+.ea-dark-scheme {
+    --color-primary: var(--orange-500);
+    --resize-handler-hover-bg: var(--orange-400);
+    --form-switch-checked-bg: var(--orange-500);
+    --form-type-check-input-checked-bg: var(--orange-500);
+    --button-primary-bg: var(--orange-500);
+    --pagination-active-bg: var(--orange-400);
+    --sidebar-menu-active-item-bg: var(--orange-100);
+    --text-color-dark: var(--orange-500);
+    --link-hover-color: var(--orange-200);
+    --badge-boolean-false-bg: var(--red-500);
+    --badge-boolean-false-color: white;
+    --badge-boolean-true-bg: var(--green-500);
+    --badge-boolean-true-color: white;
+    --dropdown-link-hover-bg: var(--orange-100);
+    --form-control-bg: var(--true-gray-100);
+    --form-input-text-color: var(--true-gray-800);
+}
