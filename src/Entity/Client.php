@@ -6,6 +6,7 @@ use App\Repository\ClientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Blameable;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client extends Business
@@ -17,6 +18,7 @@ class Client extends Business
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'clients')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Blameable(on: 'create')]
     private $user;
 
     #[ORM\Column(type: 'string', length: 180, nullable: true)]
