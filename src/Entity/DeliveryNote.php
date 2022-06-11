@@ -4,10 +4,11 @@ namespace App\Entity;
 
 use App\Repository\DeliveryNoteRepository;
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\DocBlock\Tags\Return_;
-use Symfony\Component\Validator\Constraints\Date;
+use Gedmo\Mapping\Annotation\Blameable;
+use Gedmo\Mapping\Annotation\Timestampable;
 
 #[ORM\Entity(repositoryClass: DeliveryNoteRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class DeliveryNote
 {
     #[ORM\Id]
@@ -28,7 +29,7 @@ class DeliveryNote
     private $intervention;
 
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: true)]
-    private $number;
+    private ?string $number;
 
     #[ORM\Column(type: 'blob', nullable: true)]
     private $signature;
@@ -44,6 +45,7 @@ class DeliveryNote
         cascade: ['persist', 'merge'],
         inversedBy: 'deliveryNotes')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Blameable(on: 'create')]
     private $user;
 
     #[ORM\Column(type: 'boolean')]
@@ -58,9 +60,12 @@ class DeliveryNote
     #[ORM\Column(type: 'string', length: 40, nullable: true)]
     private $timeSpent;
 
+    #[ORM\Column(type: 'datetime')]
+    #[Timestampable(on: 'create')]
+    private $createdAt;
+
     public function __construct()
     {
-        //$this->setUser($_SESSION['user_data']);
         $this->signed = false;
         $this->disabled = false;
         $this->completed = false;
@@ -115,18 +120,6 @@ class DeliveryNote
     public function setIntervention(?string $intervention): self
     {
         $this->intervention = $intervention;
-
-        return $this;
-    }
-
-    public function getNumber(): ?string
-    {
-        return $this->number;
-    }
-
-    public function setNumber(?string $id)
-    {
-        $this->number = $this->generateNumber($id);
 
         return $this;
     }
@@ -215,11 +208,27 @@ class DeliveryNote
         return $this;
     }
 
-    private function generateNumber(?string $id): string
+    public function getNumber(): ?string
     {
-        $date = date("my", strtotime("today"));; // 06 Jun, 2022 -> 0622
-        return 'AL_' . str_pad($id . $date, 7,
-            "0", STR_PAD_LEFT); //AL_0020622
+        return $this->number;
+    }
+
+    public function setNumber(string $number): self
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    public function generateNumber(): string
+    {
+        $date = $this->getCreatedAt()->format("my"); // 06 Jun, 2022 -> 0622
+        $number =  'AL_' . str_pad($this->getId() . $date, 7,
+                "0", STR_PAD_LEFT); //AL_0020622
+
+        $this->setNumber($number);
+        return $number;
+
     }
 
     public function getTimeSpent(): ?string
@@ -233,4 +242,17 @@ class DeliveryNote
 
         return $this;
     }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
 }

@@ -30,6 +30,13 @@ class DeliveryNoteRepository extends ServiceEntityRepository
         }
     }
 
+    public function update(DeliveryNote $entity): void
+    {
+        $this->getEntityManager()->merge($entity);
+        $this->getEntityManager()->flush();
+
+    }
+
     public function remove(DeliveryNote $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);

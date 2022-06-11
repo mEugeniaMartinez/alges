@@ -12,8 +12,11 @@
     color: var(--true-gray-700);
     --dropdown-icon-color: var(--true-gray-600);
 }
+.ea-dark-scheme #titulo_logo_menu {
+    color: rgb(48,48,48);
+}
 
-.main-content {
+#new-DeliveryNote-form {
     margin-bottom: 75px;
 }
 

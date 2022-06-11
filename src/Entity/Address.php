@@ -108,8 +108,8 @@ class Address
 
     public function __toString(): string
     {
-        return $this->getStreet() .' '. $this->getCity()
-            .' '. $this->getRegion() .' '. $this->getPostcode();
+        return $this->getStreet() .', '. $this->getCity()
+            .', '. $this->getRegion() .', '. $this->getPostcode();
     }
 
 }

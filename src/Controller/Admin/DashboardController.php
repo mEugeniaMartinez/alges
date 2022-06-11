@@ -9,13 +9,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class DashboardController extends AbstractDashboardController
@@ -29,22 +29,43 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
         $_SESSION['user_data'] = $this->getUser();
-        return $this->render('admin/index.html.twig');
+        $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+
+        // Option 1. Make your dashboard redirect to the same page for all users
+        return $this->redirect(
+            $adminUrlGenerator->setController(DeliveryNoteCrudController::class)
+                ->generateUrl()
+        );
+
+        /*// Option 2. Make your dashboard redirect to different pages depending on the user
+        if ('jane' === $this->getUser()->getUsername()) {
+            return $this->redirect('...');
+        }*/
+        //return $this->render('admin/index.html.twig');
     }
 
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
             ->renderContentMaximized()
-            ->setTitle('<img src="logo_title.svg" width="75%" alt="logo" style="margin-left: 15px">')
+            ->setTitle('<img src="logo_title2.svg" width="75%" alt="logo" id="titulo_logo_menu" style="margin-left: 15px">')
             ->setFaviconPath('logo.ico');
 
     }
 
+    public function configureUserMenu(UserInterface $user): UserMenu
+    {
+        return parent::configureUserMenu($user)
+            ->setAvatarUrl('user_icon.png');
+    }
+
     public function configureMenuItems(): iterable
     {
+        //dd($_SESSION['user_data']->getId());
         yield MenuItem::section('Gestión');
-        yield MenuItem::linkToCrud('Albaranes', 'far fa-file-lines', DeliveryNote::class);
+        yield MenuItem::linkToCrud('Albaranes', 'far fa-file-lines', DeliveryNote::class)
+            //->setQueryParameter('user', $_SESSION['user_data'])
+            ->setDefaultSort(['date' => 'DESC']);
         yield MenuItem::linkToCrud('Clientes', 'fa fa-people-group', Client::class);
         yield MenuItem::section('Usuario');
         yield MenuItem::linkToDashboard('Configuración', 'fa fa-gears');

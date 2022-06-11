@@ -70,4 +70,14 @@ abstract class Business
 
         return $this;
     }
+
+    public function getFullAddress() : string
+    {
+        return sprintf('%s, %s, %s, %s',
+            $this->getAddress()->getStreet(),
+            $this->getAddress()->getCity(),
+            $this->getAddress()->getRegion(),
+            $this->getAddress()->getPostcode(),
+        );
+    }
 }
