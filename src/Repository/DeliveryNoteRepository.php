@@ -32,6 +32,7 @@ class DeliveryNoteRepository extends ServiceEntityRepository
 
     public function update(DeliveryNote $entity): void
     {
+
         $this->getEntityManager()->merge($entity);
         $this->getEntityManager()->flush();
 

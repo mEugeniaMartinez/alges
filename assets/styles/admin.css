@@ -19,6 +19,25 @@
 #new-DeliveryNote-form {
     margin-bottom: 75px;
 }
+.badge-boolean-false-gray {
+    background-color: var(--true-gray-300);
+}
+
+.form-widget .form-help {
+    color: var(--true-gray-500);
+}
+
+.markdown-preview {
+    margin-top: 10px;
+    border: 1px solid var(--true-gray-300);
+    border-radius: 5px;
+    padding: 5px;
+    color: var(--true-gray-500);
+}
+
+.markdown-preview > .h1, >.h2, >.h3, >.h4, >.h5, >.h6, >h1, >h2, >h3, >h4, >h5, >h6{
+    color: var(--true-gray-500);
+}
 
 :root {
     --color-primary: var(--orange-500);

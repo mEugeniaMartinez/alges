@@ -19,13 +19,13 @@ class DeliveryNote
     #[ORM\Column(type: 'date', nullable: true)]
     private $date;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'text', nullable: true)]
     private $material;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'text', nullable: true)]
     private $faultDescription;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'text', nullable: true)]
     private $intervention;
 
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: true)]
