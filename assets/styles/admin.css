@@ -7,6 +7,15 @@
 {
     background-color: var(--orange-400);
 }
+.actions>.action-delete>.action-label {
+    background-color: var(--red-500);
+    border-radius: 5px;
+    padding: 2px 5px;
+    color: white;
+}
+.actions>.action-delete>.action-label:hover {
+    background-color: var(--red-400);
+}
 
 .ea-dark-scheme .dropdown-menu a:hover {
     color: var(--true-gray-700);
@@ -21,6 +30,10 @@
 }
 .badge-boolean-false-gray {
     background-color: var(--true-gray-300);
+}
+
+.ea-dark-scheme .badge-boolean-false-gray {
+    color: var(--true-gray-700);
 }
 
 .form-widget .form-help {
@@ -54,6 +67,7 @@
     --badge-boolean-true-bg: var(--green-500);
     --badge-boolean-true-color: white;
     --dropdown-link-hover-bg: var(--orange-200);
+    --link-color: var(--orange-500);
 }
 .ea-dark-scheme {
     --color-primary: var(--orange-500);
@@ -72,4 +86,5 @@
     --dropdown-link-hover-bg: var(--orange-100);
     --form-control-bg: var(--true-gray-100);
     --form-input-text-color: var(--true-gray-800);
+    --link-color: var(--orange-400);
 }

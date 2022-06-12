@@ -28,8 +28,10 @@ class DeliveryNote
     #[ORM\Column(type: 'text', nullable: true)]
     private $intervention;
 
+    //#[ORM\GeneratedValue('CUSTOM')]
+    //#[ORM\Column(type: 'integer', length: 255, unique: true, nullable: true)]
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: true)]
-    private ?string $number;
+    private $number;
 
     #[ORM\Column(type: 'blob', nullable: true)]
     private $signature;
