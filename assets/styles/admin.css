@@ -7,16 +7,66 @@
 {
     background-color: var(--orange-400);
 }
-.actions>.action-delete>.action-label {
-    background-color: var(--red-500);
-    border-radius: 5px;
-    padding: 2px 5px;
-    color: white;
+.actions>.action-delete>.action-icon {
+    color: var(--true-gray-900);
 }
-.actions>.action-delete>.action-label:hover {
-    background-color: var(--red-400);
+.actions>.action-delete>.action-icon:hover {
+    color: var(--red-600);
 }
 
+.actions>.action-edit>.action-icon {
+    color: var(--orange-600);
+}
+.actions>.action-edit>.action-icon:hover {
+    color: var(--orange-400);
+}
+
+.actions>.action-detail>.action-icon {
+    color: var(--orange-600);
+}
+.actions>.action-detail>.action-icon:hover {
+    color: var(--orange-400);
+}
+
+.ea-dark-scheme .actions>.action-delete>.action-icon {
+    color: var(--true-gray-100);
+}
+
+.ea-dark-scheme .actions>.action-delete>.action-icon:hover {
+    color: var(--red-400);
+}
+
+.ea-dark-scheme .actions>.action-edit>.action-icon {
+    color: var(--orange-400);
+}
+.ea-dark-scheme .actions>.action-edit>.action-icon:hover {
+    color: var(--true-gray-100);
+}
+
+.ea-dark-scheme .actions>.action-detail>.action-icon {
+    color: var(--orange-400);
+}
+.ea-dark-scheme .actions>.action-detail>.action-icon:hover {
+    color: var(--true-gray-100);
+}
+.ts-dropdown [data-selectable].option {
+    background-color: var(--true-gray-100);
+}
+.ts-dropdown [data-selectable].option:hover {
+    background-color: var(--orange-200);
+}
+.ea-dark-scheme .ts-dropdown [data-selectable].option {
+    background-color: var(--true-gray-700);
+    color: var(--true-gray-100);
+}
+.ea-dark-scheme .ts-dropdown [data-selectable].option:hover {
+    color: var(--true-gray-800);
+}
+.plugin-dropdown_input.focus .ts-dropdown .dropdown-input {
+    border-color: var(--orange-200);
+    box-shadow: 0 0 0 0.25rem rgb(255 183 77 / 25%);
+    outline: 0;
+}
 .ea-dark-scheme .dropdown-menu a:hover {
     color: var(--true-gray-700);
     --dropdown-icon-color: var(--true-gray-600);

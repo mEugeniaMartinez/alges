@@ -27,6 +27,9 @@ class Client extends Business
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: DeliveryNote::class)]
     private $deliveryNotes;
 
+    #[ORM\Column(type: 'string', length: 15, nullable: true)]
+    private $cif;
+
     public function __construct()
     {
         $this->deliveryNotes = new ArrayCollection();
@@ -97,6 +100,18 @@ class Client extends Business
                 $deliveryNote->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCif(): ?string
+    {
+        return $this->cif;
+    }
+
+    public function setCif(?string $cif): self
+    {
+        $this->cif = $cif;
 
         return $this;
     }

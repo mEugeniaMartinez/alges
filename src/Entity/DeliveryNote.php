@@ -225,8 +225,8 @@ class DeliveryNote
     public function generateNumber(): string
     {
         $date = $this->getCreatedAt()->format("my"); // 06 Jun, 2022 -> 0622
-        $number =  'AL_' . str_pad($this->getId() . $date, 7,
-                "0", STR_PAD_LEFT); //AL_0020622
+        $number =  'AL_' . $date . str_pad($this->getId() , 3,
+                "0", STR_PAD_LEFT); //AL_0622053
 
         $this->setNumber($number);
         return $number;

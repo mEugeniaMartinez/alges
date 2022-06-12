@@ -3,9 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\DeliveryNote;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -17,32 +19,15 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
 
 class DeliveryNoteCrudController extends AbstractCrudController
 {
+    private EntityManagerInterface $em;
 
-        /*//TODO - encontrar forma de persistir numero de albarán al crearlo
-        $dnSinNumber = $this->em->getRepository(DeliveryNote::class)
-            ->createQueryBuilder('dn')
-            ->where('dn.number is null')
-            ->andWhere('dn.user = :user')
-            ->setParameter('user', $_SESSION['user_data'])
-            ->getQuery()
-            ->execute();
-
-        foreach ($dnSinNumber as $dn) {
-            var_dump($dn);
-            $this->em->getRepository(DeliveryNote::class)
-                ->createQueryBuilder('dn')
-                ->where('dn.id = :id')
-                ->setParameter('id', $dn->getid())
-                ->set('dn.number', ':number')
-                ->setParameter('number', $dn->generateNumber())
-                ->update()
-                ->getQuery()
-                ->execute();
-        }*/
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->em = $entityManager;
+    }
 
     public static function getEntityFqcn(): string
     {
@@ -51,7 +36,8 @@ class DeliveryNoteCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield FormField::addPanel('Detalles del Cliente');
+        yield FormField::addPanel('Detalles del Cliente')
+            ->collapsible();
         yield AssociationField::new('client', 'Cliente')
             ->autocomplete()
             ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
@@ -61,16 +47,17 @@ class DeliveryNoteCrudController extends AbstractCrudController
         yield TextField::new('number', 'Nº Albarán')
             ->hideOnForm();
 
-        yield FormField::addPanel('Detalles de la intervención');
+        yield FormField::addPanel('Detalles de la intervención')
+            ->collapsible();
+        yield TextField::new('timeSpent', 'Tiempo empleado')
+            ->hideOnIndex()
+            ->setColumns(3);
         yield DateField::new('date')
             ->setFormat('dd-MM-Y')
             ->setTextAlign('center');
-        yield TextField::new('timeSpent', 'Tiempo empleado')
-            ->hideOnIndex();
-
         yield TextareaField::new('material', 'Material entregado')
             ->hideOnIndex()
-            ->setHelp('Puedes utilizar markdown: ## Título, ### Subtítulo, **texto** para negrita, _texto_ para cursiva, etc.')
+            //->setHelp('Puedes utilizar markdown: ## Título, ### Subtítulo, **texto** para negrita, _texto_ para cursiva, etc.')
             ->setFormTypeOptions([
                 'row_attr' => [
                     'data-controller' => 'snarkdown',
@@ -79,10 +66,11 @@ class DeliveryNoteCrudController extends AbstractCrudController
                     'data-snarkdown-target' => 'input',
                     'data-action' => 'snarkdown#render'
                 ],
-            ]);
+            ])
+            ->setColumns(5);
         yield TextareaField::new('faultDescription', 'Descripción de la avería')
             ->hideOnIndex()
-            ->setHelp('Puedes utilizar markdown: ## Título, ### Subtítulo, **texto** para negrita, _texto_ para cursiva, etc.')
+            //->setHelp('Puedes utilizar markdown: ## Título, ### Subtítulo, **texto** para negrita, _texto_ para cursiva, etc.')
             ->setFormTypeOptions([
                 'row_attr' => [
                     'data-controller' => 'snarkdown',
@@ -91,7 +79,8 @@ class DeliveryNoteCrudController extends AbstractCrudController
                     'data-snarkdown-target' => 'input',
                     'data-action' => 'snarkdown#render'
                 ],
-            ]);
+            ])
+            ->setColumns(5);
         yield TextareaField::new('intervention', 'Intervención')
             ->hideOnIndex()
             ->setHelp('Puedes utilizar markdown: ## Título, ### Subtítulo, **texto** para negrita, _texto_ para cursiva, etc.')
@@ -103,7 +92,8 @@ class DeliveryNoteCrudController extends AbstractCrudController
                     'data-snarkdown-target' => 'input',
                     'data-action' => 'snarkdown#render'
                 ],
-            ]);
+            ])
+            ->setColumns(10);
 
         yield BooleanField::new('signed')
             ->hideOnForm()
@@ -122,11 +112,18 @@ class DeliveryNoteCrudController extends AbstractCrudController
     }
 
     //TODO - Poner acciones concretas de los albaranes
-    /*public function configureActions(Actions $actions): Actions
+    public function configureActions(Actions $actions): Actions
     {
         return parent::configureActions($actions)
             //->add('firmar', Action::MYACTION)
-    }*/
+            /*->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
+                $action->displayIf(static function (DeliveryNote $dn) {
+                    return !$dn->isSigned();
+                });
+                return $action;
+            })*/;
+    }
+
 
     public function configureCrud(Crud $crud): Crud
     {

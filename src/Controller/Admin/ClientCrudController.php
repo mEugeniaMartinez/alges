@@ -13,8 +13,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Form\Form;
 
 class ClientCrudController extends AbstractCrudController
 {
@@ -25,10 +27,22 @@ class ClientCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield TextField::new('name', 'Nombre de la empresa');
-        yield EmailField::new('email', 'Email');
-        yield TelephoneField::new('phone', 'Teléfono');
-        yield AssociationField::new('address', 'Dirección');
+        yield FormField::addPanel("Datos del cliente")
+            ->collapsible();
+        yield TextField::new('name')
+            ->setColumns(6);
+        yield TextField::new('cif', 'CIF')
+            ->hideOnIndex()
+            ->setColumns(2);
+        yield EmailField::new('email')
+            ->setColumns(6);
+        yield TelephoneField::new('phone')
+            ->setColumns(2);
+
+
+        yield FormField::addPanel("Dirección")
+            ->collapsible();;
+        yield AssociationField::new('address');
         /*yield TextField::new('fullAddress', 'Dirección')
             ->hideOnForm();
         yield TextField::new('address.street', 'Dirección')

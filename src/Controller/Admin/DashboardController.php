@@ -77,7 +77,16 @@ class DashboardController extends AbstractDashboardController
     {
         return parent::configureActions()
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
-            ->remove(Crud::PAGE_INDEX, Action::BATCH_DELETE);
+            ->remove(Crud::PAGE_INDEX, Action::BATCH_DELETE)
+            ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
+                return $action->setIcon('fas fa-trash-alt')->setLabel(false);
+            })
+            ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
+                return $action->setIcon('fas fa-pen')->setLabel(false);
+            })
+            ->update(Crud::PAGE_INDEX, Action::DETAIL, function (Action $action) {
+                return $action->setIcon('fas fa-eye')->setLabel(false);
+            });
     }
 
     public function configureAssets(): Assets

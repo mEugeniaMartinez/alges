@@ -5,6 +5,6 @@
 
 {% if ea.crud.currentAction == 'detail' or not field.customOptions.get('renderAsSwitch') %}
     <span class="badge {{ field.value == true ? 'badge-boolean-false' : 'badge-boolean-true' }}">
-        {{ field.value == true ? 'ANULADO' : '<i class="fas fa-thumbs-up"></i>' }}
+        {{ field.value == true ? '<i class="fas fa-ban"></i>' : '<i class="fas fa-check"></i>' }}
     </span>
 {% endif %}
