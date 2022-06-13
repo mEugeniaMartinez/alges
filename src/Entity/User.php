@@ -24,8 +24,11 @@ class User extends Business implements UserInterface, PasswordAuthenticatedUserI
     #[Assert\Email]
     private $email;
 
-    #[ORM\Column(type: 'blob', nullable: true)]
-    private $logo;
+    /*#[ORM\Column(type: 'blob', nullable: true)]
+    private $logo;*/
+
+    #[ORM\Column(nullable: true)]
+    private ?string $logo;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $footer;
@@ -82,11 +85,22 @@ class User extends Business implements UserInterface, PasswordAuthenticatedUserI
         return $this->logo;
     }
 
-    public function setLogo($logo): self
+    public function getLogoUrl(): ?string
+    {
+        if (!$this->logo) {
+            return null;
+        }
+
+        if (strpos($this->logo, '/') !== false) {
+            return $this->logo;
+        }
+
+        return sprintf('/uploads/logos/%s', $this->logo);
+    }
+
+    public function setLogo(?string $logo): void
     {
         $this->logo = $logo;
-
-        return $this;
     }
 
     public function getFooter(): ?string

@@ -13,7 +13,7 @@ class AddressFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        //TODO - Cambiar apariencia
+        //TODO - Cambiar apariencia (quitar lo de "Dirección completa")
         $builder
             ->add('street')
             ->add('city')

@@ -102,15 +102,17 @@
     color: var(--true-gray-500);
 }
 /* ------------------ MIS FORMS --------------------- */
-.form-group legend.col-form-label {
+/*.form-group legend.col-form-label {
     visibility: hidden;
     font-size: 1px;
     margin-bottom: -35px;
-}
+}*/
+
+
 
 
 /*
-TODO - Cambiar apariencia forms personalizados -> Address & Client
+TODO - Cambiar apariencia (tamaño inputs) forms personalizados -> Address & Client
 */
 /*#Client_address_street > .form_group{
     columns: 5;

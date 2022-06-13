@@ -11,7 +11,7 @@ class ClientFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        //TODO - Cambiar apariencia
+        //TODO - Cambiar apariencia (tamaño inputs)
         $builder
             ->add('name')
             ->add('phone')

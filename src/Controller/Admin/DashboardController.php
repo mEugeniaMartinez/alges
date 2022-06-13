@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Client;
 use App\Entity\DeliveryNote;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -68,7 +69,9 @@ class DashboardController extends AbstractDashboardController
             ->setDefaultSort(['date' => 'DESC']);
         yield MenuItem::linkToCrud('Clientes', 'fa fa-people-group', Client::class);
         yield MenuItem::section('Usuario');
-        yield MenuItem::linkToDashboard('Configuración', 'fa fa-gears');
+        yield MenuItem::linkToCrud('Configuración', 'fa fa-gears', User::class)
+            ->setAction(Crud::PAGE_DETAIL)
+            ->setEntityId($_SESSION['user_data']->getId());
         yield MenuItem::section();
         yield MenuItem::linkToLogout('Logout', 'fa fa-arrow-right-from-bracket');
     }
