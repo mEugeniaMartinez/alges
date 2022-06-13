@@ -101,6 +101,20 @@
 .markdown-preview > .h1, >.h2, >.h3, >.h4, >.h5, >.h6, >h1, >h2, >h3, >h4, >h5, >h6{
     color: var(--true-gray-500);
 }
+/* ------------------ MIS FORMS --------------------- */
+.form-group legend.col-form-label {
+    visibility: hidden;
+    font-size: 1px;
+    margin-bottom: -35px;
+}
+
+
+/*
+TODO - Cambiar apariencia forms personalizados -> Address & Client
+*/
+/*#Client_address_street > .form_group{
+    columns: 5;
+}*/
 
 :root {
     --color-primary: var(--orange-500);

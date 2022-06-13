@@ -40,10 +40,6 @@ class Client extends Business
         return $this->getName();
     }
 
-
-    /* #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "users")]
-     private $user;*/
-
     public function getId(): ?int
     {
         return parent::getId();

@@ -5,13 +5,15 @@ namespace App\Entity;
 use App\Repository\AddressRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: AddressRepository::class)]
+
+/*#[ORM\Entity(repositoryClass: AddressRepository::class)]*/
+#[ORM\Embeddable]
 class Address
 {
-    #[ORM\Id]
+    /*#[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private $id;*/
 
     #[ORM\Column(type: 'string', length: 255)]
     private $street;
@@ -25,15 +27,15 @@ class Address
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $postcode;
 
-    #[ORM\OneToOne(mappedBy: 'address',
+    /*#[ORM\OneToOne(mappedBy: 'address',
         targetEntity: Business::class,
         cascade: ['persist', 'remove'])]
-    private $business;
+    private $business;*/
 
-    public function getId(): ?int
+   /* public function getId(): ?int
     {
         return $this->id;
-    }
+    }*/
 
     public function getStreet(): ?string
     {
@@ -83,13 +85,13 @@ class Address
 
         return $this;
     }
-
+/*
     public function getBusiness(): ?Business
     {
         return $this->business;
-    }
+    }*/
 
-    public function setBusiness(?Business $business): self
+ /*   public function setBusiness(?Business $business): self
     {
         // unset the owning side of the relation if necessary
         if ($business === null && $this->business !== null) {
@@ -104,7 +106,7 @@ class Address
         $this->business = $business;
 
         return $this;
-    }
+    }*/
 
     public function __toString(): string
     {

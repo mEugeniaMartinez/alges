@@ -25,9 +25,10 @@ abstract class Business
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $phone;
 
-    #[ORM\OneToOne(inversedBy: 'business',
+    /*#[ORM\OneToOne(inversedBy: 'business',
         targetEntity: Address::class,
-        cascade: ['persist', 'remove'])]
+        cascade: ['persist', 'remove'])]*/
+    #[ORM\Embedded(class: Address::class)]
     private $address;
 
     public function getId(): ?int
@@ -69,6 +70,11 @@ abstract class Business
         $this->address = $address;
 
         return $this;
+    }
+
+    public function __construct()
+    {
+       $this->address = new Address();
     }
 
     public function getFullAddress() : string

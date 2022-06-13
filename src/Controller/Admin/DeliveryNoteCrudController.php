@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\DeliveryNote;
+use App\Form\ClientFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
@@ -16,6 +17,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -44,11 +46,14 @@ class DeliveryNoteCrudController extends AbstractCrudController
                 $queryBuilder->andWhere('entity.user = :user')
                     ->setParameter('user',$_SESSION['user_data']);
             });
-        yield TextField::new('number', 'Nº Albarán')
-            ->hideOnForm();
+        /*
+        yield Field::new('client')
+            ->setFormType(ClientFormType::class);*/
 
         yield FormField::addPanel('Detalles de la intervención')
             ->collapsible();
+        yield TextField::new('number', 'Nº Albarán')
+            ->hideOnForm();
         yield TextField::new('timeSpent', 'Tiempo empleado')
             ->hideOnIndex()
             ->setColumns(3);
