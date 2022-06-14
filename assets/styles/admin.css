@@ -101,15 +101,19 @@
 .markdown-preview > .h1, >.h2, >.h3, >.h4, >.h5, >.h6, >h1, >h2, >h3, >h4, >h5, >h6{
     color: var(--true-gray-500);
 }
+
+/*
+.content-top .content-search input[type=search][name=query]:active, .content-top .content-search input[type=search][name=query]:focus{
+    background-color: var(--orange-200);
+}
+*/
+
 /* ------------------ MIS FORMS --------------------- */
 /*.form-group legend.col-form-label {
     visibility: hidden;
     font-size: 1px;
     margin-bottom: -35px;
 }*/
-
-
-
 
 /*
 TODO - Cambiar apariencia (tamaño inputs) forms personalizados -> Address & Client
@@ -134,6 +138,8 @@ TODO - Cambiar apariencia (tamaño inputs) forms personalizados -> Address & Cli
     --badge-boolean-true-color: white;
     --dropdown-link-hover-bg: var(--orange-200);
     --link-color: var(--orange-500);
+    --button-warning-bg: var(--amber-300);
+    --button-warning-color: var(--true-gray-600);
 }
 .ea-dark-scheme {
     --color-primary: var(--orange-500);

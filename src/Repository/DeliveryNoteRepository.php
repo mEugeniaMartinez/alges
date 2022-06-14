@@ -47,6 +47,16 @@ class DeliveryNoteRepository extends ServiceEntityRepository
         }
     }
 
+    public function updateCompleted(DeliveryNote $entity): void
+    {
+        if($entity->getClient() !== null && $entity->getDate() !== null && $entity->getIntervention()) {
+            $entity->setCompleted(true);
+        } else {
+            $entity->setCompleted(false);
+        }
+        $this->update($entity);
+    }
+
 //    /**
 //     * @return DeliveryNote[] Returns an array of DeliveryNote objects
 //     */

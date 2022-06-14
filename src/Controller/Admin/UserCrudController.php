@@ -89,5 +89,4 @@ class UserCrudController extends AbstractCrudController
             ->setPageTitle(Crud::PAGE_EDIT, 'Modificar datos de la empresa');
     }
 
-
 }
