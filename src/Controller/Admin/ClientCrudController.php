@@ -46,6 +46,7 @@ class ClientCrudController extends AbstractCrudController
             ->collapsible();
         yield Field::new('address')
             ->setFormType(AddressFormType::class)
+            ->setRequired(true)
             ->setColumns(8);
 
     }

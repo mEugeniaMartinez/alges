@@ -21,7 +21,6 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "signature_pad": "^4.0.5",
-        "snarkdown": "^2.0.0"
+        "signature_pad": "^4.0.5"
     }
 }

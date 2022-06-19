@@ -36,8 +36,8 @@ class DeliveryNote
     #[ORM\Column(type: 'blob', nullable: true)]
     private $signature;
 
-    #[ORM\Column(type: 'blob', nullable: true)]
-    private $pdf;
+    #[ORM\Column(nullable: true)]
+    private ?string $pdf;
 
     #[ORM\ManyToOne(targetEntity: Client::class,
         inversedBy: 'deliveryNotes')]

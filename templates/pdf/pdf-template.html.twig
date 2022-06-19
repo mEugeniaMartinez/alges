@@ -231,15 +231,21 @@
         <td colspan="2">
             <table>
                 <tr class="heading">
-                    <td style="padding-right: 20px;">Descripción de la avería</td>
-
-                    <td style="padding-left: 5px;">Material entregado</td>
+                    {% if dn.faultDescription is not null %}
+                        <td style="padding-right: 20px;">Descripción de la avería</td>
+                    {% endif %}
+                    {% if dn.material is not null %}
+                        <td style="padding-left: 5px;">Material entregado</td>
+                    {% endif %}
                 </tr>
 
                 <tr class="item last">
-                    <td style="padding-right: 20px;"> {{ dn.faultDescription }}</td>
-
-                    <td style="padding-left: 5px;"> {{ dn.material }}</td>
+                    {% if dn.faultDescription is not null %}
+                        <td style="padding-right: 20px;"> {{ dn.faultDescription }}</td>
+                    {% endif %}
+                    {% if dn.material is not null %}
+                        <td style="padding-left: 5px;"> {{ dn.material }}</td>
+                    {% endif %}
                 </tr>
             </table>
         </td>

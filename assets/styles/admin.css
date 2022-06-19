@@ -141,6 +141,13 @@ TODO - Cambiar apariencia (tamaño inputs) forms personalizados -> Address & Cli
 .btn-danger:hover{
     background-color: var(--red-500);
 }
+.otherActionsIndex {
+    color: #2057e3;
+}
+.otherActionsIndex:hover {
+    color: rgba(69, 111, 229, 0.73);
+
+}
 :root {
     --color-primary: var(--orange-500);
     --color-info: #6187e5;
