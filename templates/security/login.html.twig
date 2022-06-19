@@ -37,16 +37,6 @@
                                    text-gray-900 rounded-b-md focus:outline-none focus:ring-orange-500
                                    focus:border-orange-500 focus:z-10 sm:text-sm" placeholder="Contraseña">
                         </div>
-
-                        {#<div class="form-check">
-                            <label class="inline-block text-gray-700 mt-4">
-                                <input class="form-checkbox appearance-none h-4 w-4 border border-white
-                        rounded-sm bg-white focus:outline-none checked:bg-orange-500 checked:hover:bg-orange-500
-                        transition duration-100 mt-1 align-top bg-center bg-contain focus:checked:bg-orange-500
-                        float-left mr-2 cursor-pointer" type="checkbox" name="_remember_me">
-                                Recuérdame
-                            </label>
-                        </div>#}
                     </div>
 
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">

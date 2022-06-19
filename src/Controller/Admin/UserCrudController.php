@@ -16,6 +16,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UserCrudController extends AbstractCrudController
@@ -44,10 +45,9 @@ class UserCrudController extends AbstractCrudController
             ->setUploadDir('public/uploads/logos')
             ->setBasePath('uploads/logos')
             ->setUploadedFileNamePattern(
-                fn (UploadedFile $file): string => sprintf('%d_%s_%s',
+                fn (UploadedFile $file): string => sprintf('logo%d.%s',
                     $_SESSION['user_data']->getId(),
-                    $_SESSION['user_data']->getName(),
-                    $file->getClientOriginalName())
+                    $file->getClientOriginalExtension())
             )
             ->setColumns(4);
         yield TextareaField::new('footer')

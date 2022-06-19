@@ -17,18 +17,15 @@ use Symfony\Component\Validator\Constraints\Date;
 class BaseController extends AbstractController
 {
     private $em;
-    private UserPasswordHasherInterface $hasher;
 
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher)
+    public function __construct(EntityManagerInterface $entityManager)
     {
         $this->em = $entityManager;
-        $this->hasher = $hasher;
     }
 
     #[Route('/base', name: 'app_base')]
     public function index(): Response
     {
-
         /*$userRepo = $this->em->getRepository(User::class);
         $userDB = $userRepo->find(26);
         $clientRepo = $this->em->getRepository(Client::class);
@@ -58,10 +55,10 @@ class BaseController extends AbstractController
         $this->em->flush();*/
 
         //$users = $this->em->getRepository(User::class)->findAll();
-
+/*
         return $this->render('base.html.twig', [
             'controller_name' => 'BaseController',
             //'users' => $users,
-        ]);
+        ]);*/
     }
 }

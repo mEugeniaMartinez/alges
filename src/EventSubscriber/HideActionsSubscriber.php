@@ -22,7 +22,7 @@ class HideActionsSubscriber implements EventSubscriberInterface
         }
         // disable action entirely delete, detail, edit
         $dn = $adminContext->getEntity()->getInstance();
-        if ($dn instanceof DeliveryNote && $dn->isSigned()) {
+        if ($dn instanceof DeliveryNote && ($dn->isDisabled() || $dn->isSigned())) {
             $crudDto->getActionsConfig()->disableActions([Action::EDIT]);
         }
         // This gives you the "configuration for all the actions".
@@ -33,8 +33,13 @@ class HideActionsSubscriber implements EventSubscriberInterface
                 return;
         }
         $editAction->setDisplayCallable(function(DeliveryNote $dn) {
-            return !$dn->isSigned();
+            if ((!$dn->isDisabled() && $dn->isSigned()) || ($dn->isDisabled() && !$dn->isSigned())
+            || ($dn->isDisabled() && $dn->isSigned()))
+                return false;
+            else
+                return true;
         });
+
 
     }
 

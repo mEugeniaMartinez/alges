@@ -102,6 +102,17 @@
     color: var(--true-gray-500);
 }
 
+/* ------------------ SIGNATURE CANVAS --------------------- */
+
+.signature-pad {
+    /*left: 15px;
+    top: 163px;*/
+    width:500px;
+    height:300px;
+    border: 2px solid var(--color-primary);
+    border-radius: 5px;
+}
+/* --------------------------------------------------------- */
 /*
 .content-top .content-search input[type=search][name=query]:active, .content-top .content-search input[type=search][name=query]:focus{
     background-color: var(--orange-200);
@@ -121,9 +132,18 @@ TODO - Cambiar apariencia (tamaño inputs) forms personalizados -> Address & Cli
 /*#Client_address_street > .form_group{
     columns: 5;
 }*/
-
+.btn-outline-primary{
+    color: var(--orange-500);
+}.btn-outline-primary:hover{
+    background-color: var(--orange-300);
+    color: var(--true-gray-800)
+}
+.btn-danger:hover{
+    background-color: var(--red-500);
+}
 :root {
     --color-primary: var(--orange-500);
+    --color-info: #6187e5;
     --resize-handler-hover-bg: var(--orange-400);
     --form-switch-checked-bg: var(--orange-500);
     --button-primary-bg: var(--orange-500);

@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\DeliveryNote;
-use App\Form\ClientFormType;
+use App\Service\PdfService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
@@ -22,15 +22,28 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+use Knp\Snappy\Pdf;
+use Symfony\Component\HttpFoundation\Response;
+use Twig\Environment;
 
 class DeliveryNoteCrudController extends AbstractCrudController
 {
-    /*private EntityManagerInterface $em;
+    private AdminUrlGenerator $adminUrlGenerator;
+    private Environment $twig;
+    private Pdf $pdf;
+    private PdfService $pdfService;
+    private $em;
 
-    public function __construct(EntityManagerInterface $entityManager)
-    {
+    public function __construct(AdminUrlGenerator $adminUrlGenerator, EntityManagerInterface $entityManager, Environment $twig/*, Pdf $pdf*/) {
+        $this->adminUrlGenerator = $adminUrlGenerator;
         $this->em = $entityManager;
-    }*/
+        $this->twig = $twig;
+        $this->pdfService = new PdfService($this->em, $this->twig);
+        /*$this->pdf = $pdf;*/
+    }
+
 
     public static function getEntityFqcn(): string
     {
@@ -63,29 +76,9 @@ class DeliveryNoteCrudController extends AbstractCrudController
             ->setTextAlign('center');
         yield TextareaField::new('material', 'Material entregado')
             ->hideOnIndex()
-            //->setHelp('Puedes utilizar markdown: ## Título, ### Subtítulo, **texto** para negrita, _texto_ para cursiva, etc.')
-            ->setFormTypeOptions([
-                'row_attr' => [
-                    'data-controller' => 'snarkdown',
-                ],
-                'attr' => [
-                    'data-snarkdown-target' => 'input',
-                    'data-action' => 'snarkdown#render'
-                ],
-            ])
             ->setColumns(5);
         yield TextareaField::new('faultDescription', 'Descripción de la avería')
             ->hideOnIndex()
-            //->setHelp('Puedes utilizar markdown: ## Título, ### Subtítulo, **texto** para negrita, _texto_ para cursiva, etc.')
-            ->setFormTypeOptions([
-                'row_attr' => [
-                    'data-controller' => 'snarkdown',
-                ],
-                'attr' => [
-                    'data-snarkdown-target' => 'input',
-                    'data-action' => 'snarkdown#render'
-                ],
-            ])
             ->setColumns(5);
         yield TextareaField::new('intervention', 'Intervención')
             ->hideOnIndex()
@@ -100,6 +93,9 @@ class DeliveryNoteCrudController extends AbstractCrudController
                 ],
             ])
             ->setColumns(10);
+
+        /*yield Field::new('signature')
+            ->onlyOnForms();*/
 
         yield BooleanField::new('signed')
             ->hideOnForm()
@@ -116,29 +112,6 @@ class DeliveryNoteCrudController extends AbstractCrudController
             ->setTemplatePath('admin/field/disableDN.html.twig')
             ->setTextAlign('center');
     }
-
-    //TODO - Poner acciones concretas de los albaranes
-    public function configureActions(Actions $actions): Actions
-    {
-        $signAction = Action::new('sign')
-            ->addCssClass('btn btn-warning')
-            ->setIcon('fas fa-marker')
-            ->displayAsButton()
-            //->setTemplatePath('admin/sign_action.html.twig')
-            ->linkToCrudAction('sign');
-
-        return parent::configureActions($actions)
-            ->add(Crud::PAGE_DETAIL, $signAction)
-            ->add(Crud::PAGE_EDIT, $signAction)
-            //->add('firmar', Action::MYACTION)
-            /*->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
-                $action->displayIf(static function (DeliveryNote $dn) {
-                    return !$dn->isSigned();
-                });
-                return $action;
-            })*/;
-    }
-
 
     public function configureCrud(Crud $crud): Crud
     {
@@ -177,6 +150,37 @@ class DeliveryNoteCrudController extends AbstractCrudController
             ->add('signed')
             ->add('completed')
             ->add('disabled');
+    }
+
+    //TODO - Poner acciones concretas de los albaranes
+    public function configureActions(Actions $actions): Actions
+    {
+
+        /*$signAction = Action::new('sign', 'Firmar', 'fas fa-marker')
+            ->setCssClass('btn btn-warning')
+            ->linkToUrl(function (DeliveryNote $dn) {
+                //return $this->generateUrl('app_sign');
+                return $this->adminUrlGenerator->setRoute('app_sign', ['id'=>$dn->getId()]);
+            });*/
+
+        $pdfAction = Action::new('pdf', 'Generar PDF', 'fa fa-file-pdf')
+            ->setCssClass('btn btn-info')
+            ->linkToCrudAction('generatePdf')
+            ->displayIf(function (DeliveryNote $deliveryNote) {
+                return !$deliveryNote->isDisabled();
+            }); //si anulado -> no PDF
+
+
+        return parent::configureActions($actions)
+            ->add(Crud::PAGE_DETAIL, $pdfAction)
+            //->add(Crud::PAGE_DETAIL, $signAction)
+            //->add('firmar', Action::MYACTION)
+            ;
+    }
+
+    public function generatePdf(AdminContext $context)
+    {
+        return new Response($this->pdfService->showPdfFile($_GET['entityId']));
     }
 
 }

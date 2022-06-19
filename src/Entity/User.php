@@ -24,13 +24,10 @@ class User extends Business implements UserInterface, PasswordAuthenticatedUserI
     #[Assert\Email]
     private $email;
 
-    /*#[ORM\Column(type: 'blob', nullable: true)]
-    private $logo;*/
-
     #[ORM\Column(nullable: true)]
     private ?string $logo;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 1500, nullable: true)]
     private $footer;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Client::class)]
