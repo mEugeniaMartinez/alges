@@ -148,6 +148,12 @@ TODO - Cambiar apariencia (tamaño inputs) forms personalizados -> Address & Cli
     color: rgba(69, 111, 229, 0.73);
 
 }
+.alert-success {
+    background-color: #6bf9c4;
+    border-color: #7ddbb5;
+    color: #126244;
+    font-size: medium;
+}
 :root {
     --color-primary: var(--orange-500);
     --color-info: #6187e5;

@@ -54,6 +54,10 @@ class UserCrudController extends AbstractCrudController
             ->setHelp("Este será el pie de página que aparecerá en los albaranes.
             Puede utilizarlo para indicar, por ejemplo , su política de protección de datos.")
             ->hideOnIndex();
+        yield TextareaField::new('emailText')
+            ->setHelp("Este será el texto del correo electrónico junto al que se enviarán los albaranes
+            en la opción <b>Enviar PDF</b>.")
+            ->hideOnIndex();
 
         yield FormField::addPanel("Dirección")
             ->collapsible();

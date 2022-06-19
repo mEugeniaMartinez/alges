@@ -3,6 +3,7 @@
     namespace App\Controller\Admin;
 
     use App\Entity\DeliveryNote;
+    use App\Service\EmailService;
     use App\Service\PdfService;
     use Doctrine\ORM\EntityManagerInterface;
     use Doctrine\ORM\QueryBuilder;
@@ -25,6 +26,7 @@
     use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
     use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
     use Symfony\Component\HttpFoundation\Response;
+    use Symfony\Component\Mailer\MailerInterface;
     use Twig\Environment;
 
     class DeliveryNoteCrudController extends AbstractCrudController
@@ -36,12 +38,14 @@
 
         public function __construct(AdminUrlGenerator      $adminUrlGenerator,
                                     EntityManagerInterface $entityManager,
-                                    Environment            $twig)
+                                    Environment            $twig,
+                                    MailerInterface $mailer)
         {
             $this->adminUrlGenerator = $adminUrlGenerator;
             $this->em = $entityManager;
             $this->twig = $twig;
             $this->pdfService = new PdfService($this->twig);
+            $this->emailService = new EmailService($mailer, $this->pdfService, $this->twig);
         }
 
         public static function getEntityFqcn(): string
@@ -180,19 +184,39 @@
 
             $pdfAction = $this->getPdfAction();
             $pdfActionIndex = $this->getPdfIndexAction();
+            $sendPdfAction = $this->getSendEmailAction();
+            $sendPdfActionIndex = $this->getSendEmailIndexAction();
 
 
             return parent::configureActions($actions)
                 ->add(Crud::PAGE_DETAIL, $pdfAction)
-                ->add(Crud::PAGE_INDEX, $pdfActionIndex);
+                ->add(Crud::PAGE_INDEX, $pdfActionIndex)
+                ->add(Crud::PAGE_DETAIL, $sendPdfAction)
+                ->add(Crud::PAGE_INDEX, $sendPdfActionIndex);
         }
 
-        public function generatePdf(AdminContext $context)
+        public function generatePdf(): Response
         {
             //TODO - revisar si necesario pasar em al pdfService
             $dn = $this->em->getRepository(DeliveryNote::class)
             ->find($_GET['entityId']);
-            return new Response($this->pdfService->showPdfFile($dn, $this->em));
+            return new Response($this->pdfService->showPdfFile($dn));
+        }
+
+        public function __invoke()
+        {
+            // TODO: Implement __invoke() method.
+        }
+
+
+        public function sendPdf(AdminContext $context)
+        {
+            /*dd($this->redirect('delivery_notes'));*/
+            $dn = $this->em->getRepository(DeliveryNote::class)
+                ->find($_GET['entityId']);
+            $this->emailService->sendPdfByEmail($dn);
+            $this->addFlash('success', 'Email enviado junto al albarán.');
+            return $this->redirect('delivery_notes');
         }
 
         public function getPdfAction(): Action
@@ -222,27 +246,25 @@
 
         public function getSendEmailAction(): Action
         {
-            return Action::new('pdf', 'Enviar PDF','fas fa-paper-plane')
+            return Action::new('sendPdf', 'Enviar PDF','fas fa-paper-plane')
                 ->setCssClass('btn btn-info')
-                ->linkToCrudAction('generatePdf')
+                ->linkToCrudAction('sendPdf')
                 ->displayAsLink()
-                ->setHtmlAttributes(['target' => '_blank'])
                 ->displayIf(function (DeliveryNote $deliveryNote) {
                     return !$deliveryNote->isDisabled();
-                }); //si anulado -> no PDF
+                }); //si anulado -> no mail
         }
 
         public function getSendEmailIndexAction(): Action
         {
-            return Action::new('pdf', 'Enviar PDF','fas fa-paper-plane')
+            return Action::new('sendPdf', 'Enviar PDF','fas fa-paper-plane')
                 ->setLabel(false)
                 ->setCssClass('otherActionsIndex')
-                ->linkToCrudAction('generatePdf')
+                ->linkToCrudAction('sendPdf')
                 ->displayAsLink()
-                ->setHtmlAttributes(['target' => '_blank'])
                 ->displayIf(function (DeliveryNote $deliveryNote) {
                     return !$deliveryNote->isDisabled();
-                }); //si anulado -> no PDF
+                }); //si anulado -> no mail
         }
 
     }

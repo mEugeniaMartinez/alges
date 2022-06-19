@@ -36,6 +36,12 @@ class Address
         return $this->id;
     }*/
 
+    public function __construct()
+    {
+        $this->street = " ";
+    }
+
+
     public function getStreet(): ?string
     {
         return $this->street;
@@ -84,28 +90,6 @@ class Address
 
         return $this;
     }
-/*
-    public function getBusiness(): ?Business
-    {
-        return $this->business;
-    }*/
-
- /*   public function setBusiness(?Business $business): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($business === null && $this->business !== null) {
-            $this->business->setAddress(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($business !== null && $business->getAddress() !== $this) {
-            $business->setAddress($this);
-        }
-
-        $this->business = $business;
-
-        return $this;
-    }*/
 
     public function __toString(): string
     {

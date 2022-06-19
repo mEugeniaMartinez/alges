@@ -30,6 +30,9 @@
         #[ORM\Column(type: 'string', length: 1500, nullable: true)]
         private $footer;
 
+        #[ORM\Column(type: 'string', length: 255, nullable: true)]
+        private $emailText;
+
         #[ORM\OneToMany(mappedBy: 'user', targetEntity: Client::class)]
         private $clients;
 
@@ -51,6 +54,17 @@
         {
             $this->clients = new ArrayCollection();
             $this->deliveryNotes = new ArrayCollection();
+            parent::__construct();
+        }
+
+        public function getEmailText()
+        {
+            return $this->emailText;
+        }
+
+        public function setEmailText($emailText): void
+        {
+            $this->emailText = $emailText;
         }
 
         public function __toString(): string
