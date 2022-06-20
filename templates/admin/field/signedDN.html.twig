@@ -5,6 +5,6 @@
 
 {% if ea.crud.currentAction == 'detail' or not field.customOptions.get('renderAsSwitch') %}
     <span class="badge {{ field.value == true ? 'badge-boolean-true' : 'badge-boolean-false-gray' }}">
-        {{ field.value == true ? '<i class="fas fa-file-signature"></i>' : 'SIN FIRMAR' }}
+        {{ field.value == true ? '<em class="fas fa-file-signature"></em>' : 'SIN FIRMAR' }}
     </span>
 {% endif %}

@@ -16,7 +16,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);*/
             font-size: 15px;
             line-height: 19px;
-            font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             color: #555;
             position: relative;
         }
@@ -141,12 +141,12 @@
 </head>
 <body>
 <div class="invoice-box">
-    <table style="margin-bottom: 15px; margin-top: -30px;">
+    <table style="margin-bottom: 15px; margin-top: -30px;" aria-label="Informacion_empresa">
         <tr class="top">
             <td class="title">
                 <img src="uploads/logos/{{ dn.user.logo }}"
                      style="width: 160px; max-width:180px; height: 160px; max-height: 180px;
-                         margin-top: -25px;"/>
+                         margin-top: -25px;" alt="logo_empresa"/>
                 <br/>
                 <span style="font-size: 19px; font-weight: bold">{{ dn.number }}</span>
             </td>
@@ -161,7 +161,7 @@
                 {{ dn.user.address.city }}, {{ dn.user.address.region }} <br/>
                 CP: {{ dn.user.address.postcode }}<br/><br/>
                 </span>
-                <span style="color: #6b6b6b"><b>Fecha: </b>{{ dn.date | date("d/m/Y") }}<br/></span>
+                <span style="color: #6b6b6b"><strong>Fecha: </strong>{{ dn.date | date("d/m/Y") }}<br/></span>
 
             </td>
         </tr>
@@ -182,9 +182,9 @@
         </tr> #}
     </table>
 
-    <table class="client" style="margin-bottom: 25px;">
+    <table class="client" style="margin-bottom: 25px;" aria-label="client">
         <td colspan="1">
-            <table>
+            <table aria-label="client-row">
                 <tr class="heading">
                     <td style="width: 100%;">Datos del cliente</td>
                 </tr>
@@ -209,10 +209,10 @@
         </td>
     </table>
 
-    <table>
+    <table aria-label="intervention">
         <tr style="width: 100% !important; margin-top: 20px !important;">
             <td colspan="1">
-                <table>
+                <table aria-label="intervention-row">
                     <tr class="heading">
                         <td style="width: 100%;">Intervención</td>
 
@@ -229,7 +229,7 @@
         </tr>
 
         <td colspan="2">
-            <table>
+            <table aria-label="fault-material">
                 <tr class="heading">
                     {% if dn.faultDescription is not null %}
                         <td style="padding-right: 20px;">Descripción de la avería</td>
@@ -253,7 +253,7 @@
 
     <p class="signature"> Firma del cliente: <span> _________________________________ </span></p>
 
-    <table class="footer">
+    <table class="footer" aria-label="footer">
         <tr style="width: 100% !important; margin-top: 20px !important;">
             <td colspan="1">
                 {{ dn.user.footer }}
