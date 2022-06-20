@@ -53,7 +53,6 @@
 
         public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
         {
-            //Clientes solo del usuario actual
             return parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters)
                 ->andWhere('entity.user = :user')
                 ->setParameter('user', $_SESSION['user_data']);
@@ -80,7 +79,13 @@
                 ->update(Crud::PAGE_DETAIL, Action::EDIT, static function (Action $action) {
                     return $action->setIcon('far fa-edit');
                 })
-                ->reorder(Crud::PAGE_DETAIL, [Action::EDIT, Action::INDEX, Action::DELETE]);
+                ->reorder(Crud::PAGE_DETAIL, [Action::EDIT, Action::INDEX, Action::DELETE])
+                ->update(Crud::PAGE_NEW, Action::SAVE_AND_ADD_ANOTHER, static function (Action $action) {
+                    return $action->setIcon('fa fa-plus-circle');
+                })
+                ->update(Crud::PAGE_NEW, Action::SAVE_AND_RETURN, static function (Action $action) {
+                    return $action->setIcon('fa fa-save');
+                });
 
         }
 

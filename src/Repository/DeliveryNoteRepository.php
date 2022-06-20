@@ -56,10 +56,4 @@
             }
             $this->update($entity);
         }
-
-        public function updatePdf(DeliveryNote $entity, $pdf)
-        {
-            $entity->setPdf($pdf);
-            $this->update($entity);
-        }
     }

@@ -107,9 +107,6 @@
                 ->hideOnIndex()
                 ->setColumns(10);
 
-            /*yield Field::new('signature')
-                ->onlyOnForms();*/
-
             yield TextField::new('pdf', 'PDF del albarán')
                 ->onlyOnDetail()
                 ->setHelp("Si quiere guardar el PDF generado del albarán, entre en <b>Modificar</b> y suba el archivo.");
@@ -145,7 +142,6 @@
 
         public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
         {
-            //Albaranes solo del usuario actual
             $indexQuery = parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters)
                 ->andWhere('entity.user = :user')
                 ->setParameter('user', $_SESSION['user_data']);
