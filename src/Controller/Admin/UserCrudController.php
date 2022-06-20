@@ -78,7 +78,16 @@
                     return $action;
                 })
                 ->disable(Crud::PAGE_INDEX)
-                ->disable(Crud::PAGE_NEW);
+                ->disable(Crud::PAGE_NEW)
+                ->update(Crud::PAGE_DETAIL, Action::EDIT, static function (Action $action) {
+                    return $action->setIcon('far fa-edit');
+                })
+                ->update(Crud::PAGE_EDIT, Action::SAVE_AND_RETURN, static function (Action $action) {
+                    return $action->setIcon('fa fa-save');
+                })
+                ->update(Crud::PAGE_EDIT, Action::DETAIL, static function (Action $action) {
+                    return $action->setIcon('fa fa-eye');
+                });
         }
 
         public function configureCrud(Crud $crud): Crud

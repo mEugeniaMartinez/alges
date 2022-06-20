@@ -84,6 +84,7 @@
             yield FormField::addRow();
 
             yield BooleanField::new('signed')
+                ->setHelp('Marcar como <b>Firmado</b> no permitirá realizar cambios en el albarán.')
                 ->onlyWhenUpdating()
                 ->renderAsSwitch(false)
                 ->setColumns(2);
@@ -113,6 +114,7 @@
                 ->onlyOnDetail()
                 ->setHelp("Si quiere guardar el PDF generado del albarán, entre en <b>Modificar</b> y suba el archivo.");
             yield BooleanField::new('signed')
+                ->setHelp('Marcar como <b>Firmado</b> no permitirá realizar cambios en el albarán.')
                 ->hideOnForm()
                 ->renderAsSwitch(false)
                 ->setTemplatePath('admin/field/signedDN.html.twig')

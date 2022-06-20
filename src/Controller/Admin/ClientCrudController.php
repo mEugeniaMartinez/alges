@@ -7,6 +7,9 @@
     use Doctrine\ORM\QueryBuilder;
     use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
     use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
+    use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+    use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+    use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
     use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
     use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
     use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
@@ -59,6 +62,25 @@
         {
             return parent::configureFilters($filters)
                 ->add('name');
+        }
+
+        public function configureActions(Actions $actions): Actions
+        {
+            return parent::configureActions($actions)
+                ->update(Crud::PAGE_EDIT, Action::SAVE_AND_RETURN, static function (Action $action) {
+                    return $action->setIcon('fa fa-save');
+                })
+                ->update(Crud::PAGE_INDEX, Action::NEW, static function (Action $action) {
+                    return $action->setIcon('fas fa-plus');
+                })
+                ->update(Crud::PAGE_DETAIL, Action::INDEX, static function (Action $action) {
+                    return $action->setIcon('fas fa-list-ul');
+                })
+                ->update(Crud::PAGE_DETAIL, Action::EDIT, static function (Action $action) {
+                    return $action->setIcon('far fa-edit');
+                })
+                ->reorder(Crud::PAGE_DETAIL, [Action::EDIT, Action::INDEX, Action::DELETE]);
+
         }
 
 
