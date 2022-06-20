@@ -12,7 +12,7 @@
         private MailerInterface $mailer;
         private PdfService $pdfService;
 
-        public function __construct(MailerInterface $mailer, PdfService $pdfService, Environment $twig)
+        public function __construct(MailerInterface $mailer, Environment $twig)
         {
             $this->mailer = $mailer;
             $this->pdfService = new PdfService($twig);

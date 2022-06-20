@@ -45,7 +45,7 @@
             $this->em = $entityManager;
             $this->twig = $twig;
             $this->pdfService = new PdfService($this->twig);
-            $this->emailService = new EmailService($mailer, $this->pdfService, $this->twig);
+            $this->emailService = new EmailService($mailer, $this->twig);
         }
 
         public static function getEntityFqcn(): string
