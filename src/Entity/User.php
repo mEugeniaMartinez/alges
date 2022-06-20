@@ -142,11 +142,8 @@
 
         public function removeClient(Client $client): self
         {
-            if ($this->clients->removeElement($client)) {
-                // set the owning side to null (unless already changed)
-                if ($client->getUser() === $this) {
+            if ($this->clients->removeElement($client) && $client->getUser() === $this) {
                     $client->setUser(null);
-                }
             }
 
             return $this;
@@ -172,11 +169,8 @@
 
         public function removeDeliveryNote(DeliveryNote $deliveryNote): self
         {
-            if ($this->deliveryNotes->removeElement($deliveryNote)) {
-                // set the owning side to null (unless already changed)
-                if ($deliveryNote->getUser() === $this) {
+            if ($this->deliveryNotes->removeElement($deliveryNote) && $deliveryNote->getUser() === $this) {
                     $deliveryNote->setUser(null);
-                }
             }
 
             return $this;

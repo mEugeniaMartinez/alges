@@ -2,6 +2,7 @@
 
     namespace App\EventSubscriber;
 
+    use App\Entity\Client;
     use App\Entity\DeliveryNote;
     use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
     use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeCrudActionEvent;
@@ -17,6 +18,12 @@
             if (!$crudDto = $adminContext->getCrud()) {
                 return;
             }
+            $this->hideDNActions($adminContext, $crudDto);
+            $this->hideClientActions($adminContext, $crudDto);
+        }
+
+        public function hideDNActions($adminContext, $crudDto)
+        {
             if ($crudDto->getEntityFqcn() !== DeliveryNote::class) {
                 return;
             }
@@ -30,11 +37,27 @@
                 return;
             }
             $editAction->setDisplayCallable(function (DeliveryNote $dn) {
-                if ((!$dn->isDisabled() && $dn->isSigned()) || ($dn->isDisabled() && !$dn->isSigned())
-                    || ($dn->isDisabled() && $dn->isSigned()))
-                    return false;
-                else
-                    return true;
+                return (!$dn->isDisabled() && $dn->isSigned()) || ($dn->isDisabled() && !$dn->isSigned())
+                || ($dn->isDisabled() && $dn->isSigned()) ? false : true;
+            });
+        }
+
+        public function hideClientActions($adminContext, $crudDto)
+        {
+            if ($crudDto->getEntityFqcn() !== Client::class) {
+                return;
+            }
+
+            $client = $adminContext->getEntity()->getInstance();
+            if ($client instanceof Client && !$client->getDeliveryNotes()->isEmpty()) {
+                $crudDto->getActionsConfig()->disableActions([Action::DELETE]);
+            }
+            $actions = $crudDto->getActionsConfig()->getActions();
+            if (!$editAction = $actions[Action::DELETE] ?? null) {
+                return;
+            }
+            $editAction->setDisplayCallable(function (Client $client) {
+                return !$client->getDeliveryNotes()->isEmpty() ? false : true;
             });
         }
 

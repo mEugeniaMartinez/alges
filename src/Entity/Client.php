@@ -89,11 +89,8 @@
 
         public function removeDeliveryNote(DeliveryNote $deliveryNote): self
         {
-            if ($this->deliveryNotes->removeElement($deliveryNote)) {
-                // set the owning side to null (unless already changed)
-                if ($deliveryNote->getClient() === $this) {
+            if ($this->deliveryNotes->removeElement($deliveryNote) && $deliveryNote->getClient() === $this) {
                     $deliveryNote->setClient(null);
-                }
             }
 
             return $this;

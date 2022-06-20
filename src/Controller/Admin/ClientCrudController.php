@@ -37,6 +37,7 @@
                 ->hideOnIndex()
                 ->setColumns(2);
             yield EmailField::new('email')
+                ->setRequired(true)
                 ->setColumns(6);
             yield TelephoneField::new('phone')
                 ->setColumns(2);

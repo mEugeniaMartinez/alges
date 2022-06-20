@@ -28,8 +28,6 @@
         #[ORM\Column(type: 'text', nullable: true)]
         private $intervention;
 
-        //#[ORM\GeneratedValue('CUSTOM')]
-        //#[ORM\Column(type: 'integer', length: 255, unique: true, nullable: true)]
         #[ORM\Column(type: 'string', length: 255, unique: true, nullable: true)]
         private $number;
 
@@ -224,12 +222,12 @@
 
         public function generateNumber(): string
         {
-            $date = $this->getCreatedAt()->format("my"); // 06 Jun, 2022 -> 0622
-            $number = 'AL_' . $date . str_pad($this->getId(), 3,
-                    "0", STR_PAD_LEFT); //AL_0622053
+            $dnDdate = $this->getCreatedAt()->format("my");
+            $dnNumber = 'AL_' . $dnDdate . str_pad($this->getId(), 3,
+                    "0", STR_PAD_LEFT);
 
-            $this->setNumber($number);
-            return $number;
+            $this->setNumber($dnNumber);
+            return $dnNumber;
 
         }
 
