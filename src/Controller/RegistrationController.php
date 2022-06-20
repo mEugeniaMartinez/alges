@@ -38,8 +38,6 @@
                 $entityManager->persist($user);
                 $entityManager->flush();
 
-                // TODO - enviar mail de confirmacion de registro
-
                 return $userAuthenticator->authenticateUser(
                     $user,
                     $loginFormAuthenticator,

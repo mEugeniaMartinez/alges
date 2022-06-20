@@ -34,12 +34,8 @@
         {
             $email = $request->request->get('email');
             $password = $request->request->get('password');
-            //TODO - Borrar comentarios
-            //Dice quien es el usuario (identificado x email)
-            //Resumen cap. 13
+
             return new Passport(
-            //coge el email pq configuracion en
-            //security.yml -> app_user_provider -> App\Entity\User y property: email
                 new UserBadge($email, function ($userIdentifier) {
                     $user = $this->userRepository->findOneBy([
                         'email' => $userIdentifier,
@@ -50,14 +46,13 @@
                     }
                     return $user;
                 }),
-                //compara directamente con el hash guardado de la passw
                 new PasswordCredentials($password),
                 [
                     new CsrfTokenBadge(
                         'authenticate',
                         $request->request->get('_csrf_token')
                     ),
-                    new RememberMeBadge(), // busca directamente _remember_me
+                    new RememberMeBadge(),
                 ]
             );
         }

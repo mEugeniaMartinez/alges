@@ -18,7 +18,6 @@
             $this->pdfService = new PdfService($twig);
         }
 
-        //TODO - Cambiar config para enviar a emails reales!
         public function sendPdfByEmail(?DeliveryNote $dn)
         {
             $user = $dn->getUser();

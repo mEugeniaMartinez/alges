@@ -39,8 +39,6 @@
         {
             $this->renderPdf($dn);
             return $this->domPdf->output();
-            /*file_put_contents('uploads/pdf/' . $filename . '.pdf', $content);
-            TODO - Borrar comentario*/
         }
 
     }

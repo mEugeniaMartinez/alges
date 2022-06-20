@@ -11,7 +11,6 @@
     {
         public function buildForm(FormBuilderInterface $builder, array $options): void
         {
-            //TODO - cambiar apariencia: ajustar campos
             $builder
                 ->add('street')
                 ->add('city')

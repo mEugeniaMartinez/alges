@@ -167,7 +167,7 @@
         {
             return parent::configureFilters($filters)
                 ->add('date')
-                ->add('client') //TODO - salen tambien los que no son mios -> ¿custom filter? Mini exp. @Cap.29
+                ->add('client')
                 ->add('signed')
                 ->add('completed')
                 ->add('disabled');
