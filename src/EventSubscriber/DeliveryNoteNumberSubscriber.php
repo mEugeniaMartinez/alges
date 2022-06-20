@@ -1,37 +1,37 @@
 <?php
 
-namespace App\EventSubscriber;
+    namespace App\EventSubscriber;
 
-use App\Entity\DeliveryNote;
-use Doctrine\ORM\EntityManagerInterface;
-use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityPersistedEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+    use App\Entity\DeliveryNote;
+    use Doctrine\ORM\EntityManagerInterface;
+    use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityPersistedEvent;
+    use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class DeliveryNoteNumberSubscriber implements EventSubscriberInterface
-{
-    private EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    class DeliveryNoteNumberSubscriber implements EventSubscriberInterface
     {
-        $this->em = $entityManager;
-    }
+        private EntityManagerInterface $em;
 
-    public function onAfterEntityPersistedEvent(AfterEntityPersistedEvent $event): void
-    {
-        $dn = $event->getEntityInstance();
-        if(!$dn instanceof DeliveryNote) {
-            return;
+        public function __construct(EntityManagerInterface $entityManager)
+        {
+            $this->em = $entityManager;
         }
 
-        $dn->generateNumber();
-        $this->em->getRepository(DeliveryNote::class)->update($dn);
-    }
+        public function onAfterEntityPersistedEvent(AfterEntityPersistedEvent $event): void
+        {
+            $dn = $event->getEntityInstance();
+            if (!$dn instanceof DeliveryNote) {
+                return;
+            }
 
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            AfterEntityPersistedEvent::class => 'onAfterEntityPersistedEvent',
-        ];
-    }
+            $dn->generateNumber();
+            $this->em->getRepository(DeliveryNote::class)->update($dn);
+        }
 
-}
+        public static function getSubscribedEvents(): array
+        {
+            return [
+                AfterEntityPersistedEvent::class => 'onAfterEntityPersistedEvent',
+            ];
+        }
+
+    }

@@ -1,83 +1,95 @@
-.btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active:focus, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):focus, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):hover
-{
+.btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active:focus, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):focus, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):hover {
     background-color: var(--orange-400);
 }
 
-.ea-dark-scheme .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active:focus, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):focus, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):hover
-{
+.ea-dark-scheme .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active:focus, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):focus, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):hover {
     background-color: var(--orange-400);
 }
-.actions>.action-delete>.action-icon {
+
+.actions > .action-delete > .action-icon {
     color: var(--true-gray-900);
 }
-.actions>.action-delete>.action-icon:hover {
+
+.actions > .action-delete > .action-icon:hover {
     color: var(--red-600);
 }
 
-.actions>.action-edit>.action-icon {
+.actions > .action-edit > .action-icon {
     color: var(--orange-600);
 }
-.actions>.action-edit>.action-icon:hover {
+
+.actions > .action-edit > .action-icon:hover {
     color: var(--orange-400);
 }
 
-.actions>.action-detail>.action-icon {
+.actions > .action-detail > .action-icon {
     color: var(--orange-600);
 }
-.actions>.action-detail>.action-icon:hover {
+
+.actions > .action-detail > .action-icon:hover {
     color: var(--orange-400);
 }
 
-.ea-dark-scheme .actions>.action-delete>.action-icon {
+.ea-dark-scheme .actions > .action-delete > .action-icon {
     color: var(--true-gray-100);
 }
 
-.ea-dark-scheme .actions>.action-delete>.action-icon:hover {
+.ea-dark-scheme .actions > .action-delete > .action-icon:hover {
     color: var(--red-400);
 }
 
-.ea-dark-scheme .actions>.action-edit>.action-icon {
+.ea-dark-scheme .actions > .action-edit > .action-icon {
     color: var(--orange-400);
 }
-.ea-dark-scheme .actions>.action-edit>.action-icon:hover {
+
+.ea-dark-scheme .actions > .action-edit > .action-icon:hover {
     color: var(--true-gray-100);
 }
 
-.ea-dark-scheme .actions>.action-detail>.action-icon {
+.ea-dark-scheme .actions > .action-detail > .action-icon {
     color: var(--orange-400);
 }
-.ea-dark-scheme .actions>.action-detail>.action-icon:hover {
+
+.ea-dark-scheme .actions > .action-detail > .action-icon:hover {
     color: var(--true-gray-100);
 }
+
 .ts-dropdown [data-selectable].option {
     background-color: var(--true-gray-100);
 }
+
 .ts-dropdown [data-selectable].option:hover {
     background-color: var(--orange-200);
 }
+
 .ea-dark-scheme .ts-dropdown [data-selectable].option {
     background-color: var(--true-gray-700);
     color: var(--true-gray-100);
 }
+
 .ea-dark-scheme .ts-dropdown [data-selectable].option:hover {
     color: var(--true-gray-800);
 }
+
 .plugin-dropdown_input.focus .ts-dropdown .dropdown-input {
     border-color: var(--orange-200);
     box-shadow: 0 0 0 0.25rem rgb(255 183 77 / 25%);
     outline: 0;
 }
+
 .ea-dark-scheme .dropdown-menu a:hover {
     color: var(--true-gray-700);
     --dropdown-icon-color: var(--true-gray-600);
 }
+
 .ea-dark-scheme #titulo_logo_menu {
-    color: rgb(48,48,48);
+    color: rgb(48, 48, 48);
 }
 
 #new-DeliveryNote-form {
     margin-bottom: 75px;
 }
+
 .badge-boolean-false-gray {
     background-color: var(--true-gray-300);
 }
@@ -98,7 +110,7 @@
     color: var(--true-gray-500);
 }
 
-.markdown-preview > .h1, >.h2, >.h3, >.h4, >.h5, >.h6, >h1, >h2, >h3, >h4, >h5, >h6{
+.markdown-preview > .h1, > .h2, > .h3, > .h4, > .h5, > .h6, > h1, > h2, > h3, > h4, > h5, > h6 {
     color: var(--true-gray-500);
 }
 
@@ -107,53 +119,41 @@
 .signature-pad {
     /*left: 15px;
     top: 163px;*/
-    width:500px;
-    height:300px;
+    width: 500px;
+    height: 300px;
     border: 2px solid var(--color-primary);
     border-radius: 5px;
 }
-/* --------------------------------------------------------- */
-/*
-.content-top .content-search input[type=search][name=query]:active, .content-top .content-search input[type=search][name=query]:focus{
-    background-color: var(--orange-200);
-}
-*/
 
-/* ------------------ MIS FORMS --------------------- */
-/*.form-group legend.col-form-label {
-    visibility: hidden;
-    font-size: 1px;
-    margin-bottom: -35px;
-}*/
-
-/*
-TODO - Cambiar apariencia (tamaño inputs) forms personalizados -> Address & Client
-*/
-/*#Client_address_street > .form_group{
-    columns: 5;
-}*/
-.btn-outline-primary{
+.btn-outline-primary {
     color: var(--orange-500);
-}.btn-outline-primary:hover{
+}
+
+.btn-outline-primary:hover {
     background-color: var(--orange-300);
     color: var(--true-gray-800)
 }
-.btn-danger:hover{
+
+.btn-danger:hover {
     background-color: var(--red-500);
 }
+
 .otherActionsIndex {
     color: #2057e3;
 }
+
 .otherActionsIndex:hover {
     color: rgba(69, 111, 229, 0.73);
 
 }
+
 .alert-success {
     background-color: #6bf9c4;
     border-color: #7ddbb5;
     color: #126244;
     font-size: medium;
 }
+
 :root {
     --color-primary: var(--orange-500);
     --color-info: #6187e5;
@@ -174,6 +174,7 @@ TODO - Cambiar apariencia (tamaño inputs) forms personalizados -> Address & Cli
     --button-warning-bg: var(--amber-300);
     --button-warning-color: var(--true-gray-600);
 }
+
 .ea-dark-scheme {
     --color-primary: var(--orange-500);
     --resize-handler-hover-bg: var(--orange-400);

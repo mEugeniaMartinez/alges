@@ -1,81 +1,80 @@
 <?php
 
-namespace App\Security;
+    namespace App\Security;
 
-use App\Repository\UserRepository;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Exception\UserNotFoundException;
-use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
-use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
-use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
-use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
-use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
-use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
-use Symfony\Component\Security\Http\Util\TargetPathTrait;
+    use App\Repository\UserRepository;
+    use Symfony\Component\HttpFoundation\RedirectResponse;
+    use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\HttpFoundation\Response;
+    use Symfony\Component\Routing\RouterInterface;
+    use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+    use Symfony\Component\Security\Core\Exception\UserNotFoundException;
+    use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
+    use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
+    use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
+    use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+    use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
+    use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+    use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
-{
-    use TargetPathTrait;
-
-    private UserRepository $userRepository;
-    private RouterInterface $router;
-
-    public function __construct(UserRepository $userRepository, RouterInterface $router)
+    class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     {
+        use TargetPathTrait;
 
-        $this->userRepository = $userRepository;
-        $this->router = $router;
-    }
+        private UserRepository $userRepository;
+        private RouterInterface $router;
 
-    public function authenticate(Request $request): Passport
-    {
-        $email = $request->request->get('email');
-        $password = $request->request->get('password');
-
-        //Dice quien es el usuario (identificado x email)
-        //Resumen cap. 13
-        return new Passport(
-            //coge el email pq configuracion en
-            //security.yml -> app_user_provider -> App\Entity\User y property: email
-            new UserBadge($email, function ($userIdentifier){
-                $user = $this->userRepository->findOneBy([
-                    'email' => $userIdentifier,
-                ]);
-
-                if (!$user) {
-                    throw new UserNotFoundException();
-                }
-                return $user;
-            }),
-            //compara directamente con el hash guardado de la passw
-            new PasswordCredentials($password),
-            [
-                new CsrfTokenBadge(
-                    'authenticate',
-                    $request->request->get('_csrf_token')
-                ),
-                new RememberMeBadge(), // busca directamente _remember_me
-            ]
-        );
-    }
-
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
-    {
-        if ($target = $this->getTargetPath($request->getSession(), $firewallName)) {
-            return new RedirectResponse($target);
+        public function __construct(UserRepository $userRepository, RouterInterface $router)
+        {
+            $this->userRepository = $userRepository;
+            $this->router = $router;
         }
 
-        return new RedirectResponse(
-            $this->router->generate('app_delivery_notes')
-        );
-    }
+        public function authenticate(Request $request): Passport
+        {
+            $email = $request->request->get('email');
+            $password = $request->request->get('password');
+            //TODO - Borrar comentarios
+            //Dice quien es el usuario (identificado x email)
+            //Resumen cap. 13
+            return new Passport(
+            //coge el email pq configuracion en
+            //security.yml -> app_user_provider -> App\Entity\User y property: email
+                new UserBadge($email, function ($userIdentifier) {
+                    $user = $this->userRepository->findOneBy([
+                        'email' => $userIdentifier,
+                    ]);
 
-    protected function getLoginUrl(Request $request): string
-    {
-        return $this->router->generate('app_login');
+                    if (!$user) {
+                        throw new UserNotFoundException();
+                    }
+                    return $user;
+                }),
+                //compara directamente con el hash guardado de la passw
+                new PasswordCredentials($password),
+                [
+                    new CsrfTokenBadge(
+                        'authenticate',
+                        $request->request->get('_csrf_token')
+                    ),
+                    new RememberMeBadge(), // busca directamente _remember_me
+                ]
+            );
+        }
+
+        public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
+        {
+            if ($target = $this->getTargetPath($request->getSession(), $firewallName)) {
+                return new RedirectResponse($target);
+            }
+
+            return new RedirectResponse(
+                $this->router->generate('app_delivery_notes')
+            );
+        }
+
+        protected function getLoginUrl(Request $request): string
+        {
+            return $this->router->generate('app_login');
+        }
     }
-}

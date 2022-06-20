@@ -47,9 +47,6 @@
 
         private $plainPassword;
 
-        /*#[ORM\OneToMany(mappedBy: "client", targetEntity: Client::class)]
-        private $clients;*/
-
         public function __construct()
         {
             $this->clients = new ArrayCollection();
@@ -76,7 +73,6 @@
         public function getId(): ?int
         {
             return parent::getId();
-            //return $this->id;
         }
 
         public function getEmail(): ?string

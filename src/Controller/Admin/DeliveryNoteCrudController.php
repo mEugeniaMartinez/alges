@@ -39,7 +39,7 @@
         public function __construct(AdminUrlGenerator      $adminUrlGenerator,
                                     EntityManagerInterface $entityManager,
                                     Environment            $twig,
-                                    MailerInterface $mailer)
+                                    MailerInterface        $mailer)
         {
             $this->adminUrlGenerator = $adminUrlGenerator;
             $this->em = $entityManager;
@@ -171,7 +171,6 @@
                 ->add('disabled');
         }
 
-        //TODO - Poner acciones concretas de los albaranes
         public function configureActions(Actions $actions): Actions
         {
 
@@ -192,26 +191,37 @@
                 ->add(Crud::PAGE_DETAIL, $pdfAction)
                 ->add(Crud::PAGE_INDEX, $pdfActionIndex)
                 ->add(Crud::PAGE_DETAIL, $sendPdfAction)
-                ->add(Crud::PAGE_INDEX, $sendPdfActionIndex);
+                ->add(Crud::PAGE_INDEX, $sendPdfActionIndex)
+                ->update(Crud::PAGE_NEW, Action::SAVE_AND_ADD_ANOTHER, static function (Action $action) {
+                    return $action->setIcon('fa fa-plus-circle');
+                })
+                ->update(Crud::PAGE_NEW, Action::SAVE_AND_RETURN, static function (Action $action) {
+                    return $action->setIcon('fa fa-save');
+                })
+                ->update(Crud::PAGE_EDIT, Action::SAVE_AND_RETURN, static function (Action $action) {
+                    return $action->setIcon('fa fa-save');
+                })
+                ->update(Crud::PAGE_INDEX, Action::NEW, static function (Action $action) {
+                    return $action->setIcon('fas fa-plus');
+                })
+                ->update(Crud::PAGE_DETAIL, Action::INDEX, static function (Action $action) {
+                    return $action->setIcon('fas fa-list-ul');
+                })
+                ->update(Crud::PAGE_DETAIL, Action::EDIT, static function (Action $action) {
+                    return $action->setIcon('far fa-edit');
+                })
+                ->reorder(Crud::PAGE_DETAIL, [Action::EDIT, 'sendPdf', 'pdf', Action::INDEX, Action::DELETE]);
         }
 
         public function generatePdf(): Response
         {
-            //TODO - revisar si necesario pasar em al pdfService
             $dn = $this->em->getRepository(DeliveryNote::class)
-            ->find($_GET['entityId']);
+                ->find($_GET['entityId']);
             return new Response($this->pdfService->showPdfFile($dn));
         }
 
-        public function __invoke()
-        {
-            // TODO: Implement __invoke() method.
-        }
-
-
         public function sendPdf(AdminContext $context)
         {
-            /*dd($this->redirect('delivery_notes'));*/
             $dn = $this->em->getRepository(DeliveryNote::class)
                 ->find($_GET['entityId']);
             $this->emailService->sendPdfByEmail($dn);
@@ -233,7 +243,7 @@
 
         public function getPdfIndexAction(): Action
         {
-            return Action::new('pdf', 'Descargar PDF','fas fa-file-download')
+            return Action::new('pdf', 'Descargar PDF', 'fas fa-file-download')
                 ->setLabel(false)
                 ->setCssClass('otherActionsIndex')
                 ->linkToCrudAction('generatePdf')
@@ -246,7 +256,7 @@
 
         public function getSendEmailAction(): Action
         {
-            return Action::new('sendPdf', 'Enviar PDF','fas fa-paper-plane')
+            return Action::new('sendPdf', 'Enviar PDF', 'fas fa-paper-plane')
                 ->setCssClass('btn btn-info')
                 ->linkToCrudAction('sendPdf')
                 ->displayAsLink()
@@ -257,7 +267,7 @@
 
         public function getSendEmailIndexAction(): Action
         {
-            return Action::new('sendPdf', 'Enviar PDF','fas fa-paper-plane')
+            return Action::new('sendPdf', 'Enviar PDF', 'fas fa-paper-plane')
                 ->setLabel(false)
                 ->setCssClass('otherActionsIndex')
                 ->linkToCrudAction('sendPdf')
