@@ -3,6 +3,7 @@
         "@hotwired/stimulus": "^3.0.0",
         "@symfony/stimulus-bridge": "^3.0.0",
         "@symfony/webpack-encore": "^2.0.0",
+        "@tailwindcss/forms": "^0.5.2",
         "autoprefixer": "^10.4.7",
         "core-js": "^3.0.0",
         "postcss": "^8.4.14",
@@ -18,5 +19,8 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "signature_pad": "^4.0.5"
     }
 }

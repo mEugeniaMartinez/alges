@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ dn.number }}</title>
+
+    <style>
+        .invoice-box {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10px 20px;
+            /*border: 1px solid #e1e1e1;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);*/
+            font-size: 15px;
+            line-height: 19px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #555;
+            position: relative;
+        }
+
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+        }
+
+        .invoice-box table.footer {
+            width: 95%;
+            text-align: left;
+            color: #5e5e5e;
+            font-size: 10px;
+            line-height: 12px;
+            position: absolute;
+            bottom: 90px;
+        }
+
+        .invoice-box table.client {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+            border: 1px solid #e1e1e1;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+        }
+
+        .invoice-box table.client tr.heading td {
+            background: none;
+            border-bottom: 2px solid #e1e1e1;
+            font-weight: bold;
+        }
+
+        .invoice-box table.client tr.details td {
+            padding-bottom: 5px;
+            font-size: 15px;
+            line-height: 12px;
+        }
+
+        .invoice-box table td {
+            padding: 5px;
+            vertical-align: top;
+        }
+
+        .invoice-box table tr td:nth-child(2) {
+            text-align: left;
+            margin-left: 5px;
+        }
+
+        .invoice-box table tr.top table td {
+            padding-bottom: 20px;
+        }
+
+        .invoice-box table tr.top table td.title {
+            font-size: 45px;
+            line-height: 45px;
+            color: #333;
+        }
+
+        .invoice-box table tr.information table td {
+            font-size: 12px !important;
+            line-height: 14px !important;
+        }
+
+        .invoice-box table tr.heading td {
+            background: #e1e1e1;
+            border-bottom: 1px solid #e1e1e1;
+            font-weight: bold;
+        }
+
+        .invoice-box table tr.details td {
+            padding-bottom: 14px;
+        }
+
+        /*.invoice-box table tr.item td {
+            border-bottom: 1px solid #e1e1e1;
+        }
+
+        .invoice-box table tr.item.last td {
+        }*/
+
+        .invoice-box table tr.total td:nth-child(2) {
+            border-top: 2px solid #e1e1e1;
+            font-weight: bold;
+        }
+
+        .signature {
+            position: absolute;
+            right: 40px;
+            bottom: 100px;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+
+            .invoice-box table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+
+        /** RTL **/
+        .invoice-box.rtl {
+            direction: rtl;
+            font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        }
+
+        .invoice-box.rtl table {
+            text-align: left;
+        }
+
+        .invoice-box.rtl table tr td:nth-child(2) {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<div class="invoice-box">
+    <table style="margin-bottom: 15px; margin-top: -30px;">
+        <tr class="top">
+            <td class="title">
+                <img src="uploads/logos/{{ dn.user.logo }}"
+                     style="width: 160px; max-width:180px; height: 160px; max-height: 180px;
+                         margin-top: -25px;"/>
+                <br/>
+                <span style="font-size: 19px; font-weight: bold">{{ dn.number }}</span>
+            </td>
+
+            <td style="text-align: right; color: #6b6b6b">
+
+                <span style="font-size: 20px; font-weight: bold">{{ dn.user.name }} <br/></span>
+                <span style="font-size: 14px">
+                {{ dn.user.email }}<br/>
+                Tlf: {{ dn.user.phone }}<br/>
+                {{ dn.user.address.street }} <br/>
+                {{ dn.user.address.city }}, {{ dn.user.address.region }} <br/>
+                CP: {{ dn.user.address.postcode }}<br/><br/>
+                </span>
+                <span style="color: #6b6b6b"><b>Fecha: </b>{{ dn.date | date("d/m/Y") }}<br/></span>
+
+            </td>
+        </tr>
+
+
+        {# <tr class="information" style="margin-top: -30px; color: #6b6b6b">
+            <td>
+                {{ dn.user.address.street }} <br/>
+                {{ dn.user.address.city }}, {{ dn.user.address.region }} <br/>
+                CP: {{ dn.user.address.postcode }}<br/>
+            </td>
+
+            <td style="text-align: right">
+                {{ dn.user.name }} <br/>
+                {{ dn.user.email }}<br/>
+                {{ dn.user.phone }}<br/>
+            </td>
+        </tr> #}
+    </table>
+
+    <table class="client" style="margin-bottom: 25px;">
+        <td colspan="1">
+            <table>
+                <tr class="heading">
+                    <td style="width: 100%;">Datos del cliente</td>
+                </tr>
+
+                <tr class="details" style="width: 100%;">
+                    <td><br>{{ dn.client.name }}
+                    </td>
+                </tr>
+                <tr class="details" style="width: 100%;">
+                    <td> {{ dn.client.fullAddress }}
+                    </td>
+                <tr class="details" style="width: 100%;">
+                    <td> {{ dn.client.email }}
+                    </td>
+                </tr>
+                <tr class="details" style="width: 100%;">
+                    <td> {{ dn.client.phone }}
+                    </td>
+                </tr>
+                </tr>
+            </table>
+        </td>
+    </table>
+
+    <table cellpadding="0" cellspacing="0">
+        <tr style="width: 100% !important; margin-top: 20px !important;">
+            <td colspan="1">
+                <table>
+                    <tr class="heading">
+                        <td style="width: 100%;">Intervención</td>
+
+                    </tr>
+
+                    <tr class="details" style="width: 100%;">
+                        <td> {{ dn.intervention }} <br/><br/>
+                            <span style="font-weight: bold;">Tiempo empleado: </span>{{ dn.getTimeSpent() }}
+                        </td>
+
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <td colspan="2">
+            <table>
+                <tr class="heading">
+                    {% if dn.faultDescription is not null %}
+                        <td style="padding-right: 20px;">Descripción de la avería</td>
+                    {% endif %}
+                    {% if dn.material is not null %}
+                        <td style="padding-left: 5px;">Material entregado</td>
+                    {% endif %}
+                </tr>
+
+                <tr class="item last">
+                    {% if dn.faultDescription is not null %}
+                        <td style="padding-right: 20px;"> {{ dn.faultDescription }}</td>
+                    {% endif %}
+                    {% if dn.material is not null %}
+                        <td style="padding-left: 5px;"> {{ dn.material }}</td>
+                    {% endif %}
+                </tr>
+            </table>
+        </td>
+    </table>
+
+    <p class="signature"> Firma del cliente: <span> _________________________________ </span></p>
+
+    <table class="footer">
+        <tr style="width: 100% !important; margin-top: 20px !important;">
+            <td colspan="1">
+                {{ dn.user.footer }}
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

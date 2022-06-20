@@ -1,0 +1,196 @@
+.btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active:focus, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):focus, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):hover {
+    background-color: var(--orange-400);
+}
+
+.ea-dark-scheme .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active:focus, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):focus, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):hover {
+    background-color: var(--orange-400);
+}
+
+.actions > .action-delete > .action-icon {
+    color: var(--true-gray-900);
+}
+
+.actions > .action-delete > .action-icon:hover {
+    color: var(--red-600);
+}
+
+.actions > .action-edit > .action-icon {
+    color: var(--orange-600);
+}
+
+.actions > .action-edit > .action-icon:hover {
+    color: var(--orange-400);
+}
+
+.actions > .action-detail > .action-icon {
+    color: var(--orange-600);
+}
+
+.actions > .action-detail > .action-icon:hover {
+    color: var(--orange-400);
+}
+
+.ea-dark-scheme .actions > .action-delete > .action-icon {
+    color: var(--true-gray-100);
+}
+
+.ea-dark-scheme .actions > .action-delete > .action-icon:hover {
+    color: var(--red-400);
+}
+
+.ea-dark-scheme .actions > .action-edit > .action-icon {
+    color: var(--orange-400);
+}
+
+.ea-dark-scheme .actions > .action-edit > .action-icon:hover {
+    color: var(--true-gray-100);
+}
+
+.ea-dark-scheme .actions > .action-detail > .action-icon {
+    color: var(--orange-400);
+}
+
+.ea-dark-scheme .actions > .action-detail > .action-icon:hover {
+    color: var(--true-gray-100);
+}
+
+.ts-dropdown [data-selectable].option {
+    background-color: var(--true-gray-100);
+}
+
+.ts-dropdown [data-selectable].option:hover {
+    background-color: var(--orange-200);
+}
+
+.ea-dark-scheme .ts-dropdown [data-selectable].option {
+    background-color: var(--true-gray-700);
+    color: var(--true-gray-100);
+}
+
+.ea-dark-scheme .ts-dropdown [data-selectable].option:hover {
+    color: var(--true-gray-800);
+}
+
+.plugin-dropdown_input.focus .ts-dropdown .dropdown-input {
+    border-color: var(--orange-200);
+    box-shadow: 0 0 0 0.25rem rgb(255 183 77 / 25%);
+    outline: 0;
+}
+
+.ea-dark-scheme .dropdown-menu a:hover {
+    color: var(--true-gray-700);
+    --dropdown-icon-color: var(--true-gray-600);
+}
+
+.ea-dark-scheme #titulo_logo_menu {
+    color: rgb(48, 48, 48);
+}
+
+#new-DeliveryNote-form {
+    margin-bottom: 75px;
+}
+
+.badge-boolean-false-gray {
+    background-color: var(--true-gray-300);
+}
+
+.ea-dark-scheme .badge-boolean-false-gray {
+    color: var(--true-gray-700);
+}
+
+.form-widget .form-help {
+    color: var(--true-gray-500);
+}
+
+.markdown-preview {
+    margin-top: 10px;
+    border: 1px solid var(--true-gray-300);
+    border-radius: 5px;
+    padding: 5px;
+    color: var(--true-gray-500);
+}
+
+.markdown-preview > .h1, > .h2, > .h3, > .h4, > .h5, > .h6, > h1, > h2, > h3, > h4, > h5, > h6 {
+    color: var(--true-gray-500);
+}
+
+/* ------------------ SIGNATURE CANVAS --------------------- */
+
+.signature-pad {
+    /*left: 15px;
+    top: 163px;*/
+    width: 500px;
+    height: 300px;
+    border: 2px solid var(--color-primary);
+    border-radius: 5px;
+}
+
+.btn-outline-primary {
+    color: var(--orange-500);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--orange-300);
+    color: var(--true-gray-800)
+}
+
+.btn-danger:hover {
+    background-color: var(--red-500);
+}
+
+.otherActionsIndex {
+    color: #2057e3;
+}
+
+.otherActionsIndex:hover {
+    color: rgba(69, 111, 229, 0.73);
+
+}
+
+.alert-success {
+    background-color: #6bf9c4;
+    border-color: #7ddbb5;
+    color: #126244;
+    font-size: medium;
+}
+
+:root {
+    --color-primary: var(--orange-500);
+    --color-info: #6187e5;
+    --resize-handler-hover-bg: var(--orange-400);
+    --form-switch-checked-bg: var(--orange-500);
+    --button-primary-bg: var(--orange-500);
+    --form-type-check-input-checked-bg: var(--orange-500);
+    --pagination-active-bg: var(--orange-400);
+    --sidebar-menu-active-item-bg: var(--orange-100);
+    --text-color-dark: var(--orange-500);
+    --link-hover-color: var(--orange-200);
+    --badge-boolean-false-bg: var(--red-500);
+    --badge-boolean-false-color: white;
+    --badge-boolean-true-bg: var(--green-500);
+    --badge-boolean-true-color: white;
+    --dropdown-link-hover-bg: var(--orange-200);
+    --link-color: var(--orange-500);
+    --button-warning-bg: var(--amber-300);
+    --button-warning-color: var(--true-gray-600);
+}
+
+.ea-dark-scheme {
+    --color-primary: var(--orange-500);
+    --resize-handler-hover-bg: var(--orange-400);
+    --form-switch-checked-bg: var(--orange-500);
+    --form-type-check-input-checked-bg: var(--orange-500);
+    --button-primary-bg: var(--orange-500);
+    --pagination-active-bg: var(--orange-400);
+    --sidebar-menu-active-item-bg: var(--orange-100);
+    --text-color-dark: var(--orange-500);
+    --link-hover-color: var(--orange-200);
+    --badge-boolean-false-bg: var(--red-500);
+    --badge-boolean-false-color: white;
+    --badge-boolean-true-bg: var(--green-500);
+    --badge-boolean-true-color: white;
+    --dropdown-link-hover-bg: var(--orange-100);
+    --form-control-bg: var(--true-gray-100);
+    --form-input-text-color: var(--true-gray-800);
+    --link-color: var(--orange-400);
+}
