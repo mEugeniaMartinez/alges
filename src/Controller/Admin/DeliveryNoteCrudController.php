@@ -2,6 +2,7 @@
 
     namespace App\Controller\Admin;
 
+    use App\Entity\Client;
     use App\Entity\DeliveryNote;
     use App\Service\EmailService;
     use App\Service\PdfService;
@@ -259,8 +260,8 @@
                 ->linkToCrudAction('sendPdf')
                 ->displayAsLink()
                 ->displayIf(function (DeliveryNote $deliveryNote) {
-                    return !$deliveryNote->isDisabled();
-                }); //si anulado -> no mail
+                    return $deliveryNote->isDisabled() || !$deliveryNote->getClient() ? false : true;
+                }); //si anulado o sin cliente -> no mail
         }
 
         public function getSendEmailIndexAction(): Action
@@ -271,8 +272,8 @@
                 ->linkToCrudAction('sendPdf')
                 ->displayAsLink()
                 ->displayIf(function (DeliveryNote $deliveryNote) {
-                    return !$deliveryNote->isDisabled();
-                }); //si anulado -> no mail
+                    return $deliveryNote->isDisabled() || !$deliveryNote->getClient() ? false : true;
+                }); //si anulado o sin cliente -> no mail
         }
 
     }

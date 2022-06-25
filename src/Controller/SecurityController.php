@@ -9,7 +9,7 @@
 
     class SecurityController extends AbstractController
     {
-        #[Route('/login', name: 'app_login')]
+        #[Route('/', name: 'app_login')]
         public function login(AuthenticationUtils $authenticationUtils): Response
         {
             return $this->render('security/login.html.twig', [

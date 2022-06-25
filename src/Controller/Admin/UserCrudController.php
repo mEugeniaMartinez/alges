@@ -93,6 +93,7 @@
         public function configureCrud(Crud $crud): Crud
         {
             return parent::configureCrud($crud)
+                ->setSearchFields(null)
                 ->setPageTitle(Crud::PAGE_DETAIL, 'Datos de la empresa')
                 ->setPageTitle(Crud::PAGE_EDIT, 'Modificar datos de la empresa');
         }
